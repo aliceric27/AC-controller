@@ -1,28 +1,37 @@
 <template>
-  <header class="grid grid-rows-3">
+  <header class="grid grid-rows-2">
     <!-- 主 Logo -->
     <div class="flex justify-center p-2">
       <img src="/logo.png" alt="logo" />
     </div>
     <!-- 中間部分 -->
-    <div class="flex justify-center items-center">
-      <div class="flex justify-center items-center">
-        <img class="icon-ac mx-2" src="/icon-ac.png" alt="icon-ac" />
+    <div class="flex items-center justify-center">
+      <div class="flex items-center justify-center">
+        <img class="mx-2 icon-ac" src="/icon-ac.png" alt="icon-ac" />
         <h1 class="title">{{ $t("acController") }}</h1>
       </div>
     </div>
     <!-- 預留部分 -->
-    <div class="">
+    <!-- <div class="">
       <select v-model="$i18n.locale" name="" id="locale-select">
         <option value="en">英文</option>
         <option value="zh">中文</option>
       </select>
-    </div>
+    </div> -->
   </header>
 </template>
 <script setup></script>
 
 <style scoped>
+header {
+  background: linear-gradient(
+    180deg,
+    #fff 32.81%,
+    #f3f3f3 75.52%,
+    #e0dfdf 99.99%,
+    #cfcece 100%
+  );
+}
 /* 頁面標題 */
 .title {
   color: #717171;

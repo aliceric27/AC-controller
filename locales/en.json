@@ -1,5 +1,9 @@
 {
     "hello": "Hello, {name}!",
     "language": "Language",
-    "acController":"AC Controller"
+    "acController":"AC Controller",
+    "turnoff":"Turned off",
+    "offline":"Offline",
+    "lowtmp":"Lowtmp",
+    "online":"Online"
   }
