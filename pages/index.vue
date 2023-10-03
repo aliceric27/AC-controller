@@ -1,5 +1,4 @@
 <template>
-  <FloorSelect />
   <div class="warp">
     <!-- Header -->
     <Theheader />
@@ -17,11 +16,12 @@ import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 const store = useInfoStore();
-const countfloor = store.countfloor;
+const floorlist = store.getfloor;
+// 樓層跳轉
 const turnfloor = (floor: number) => {
+  store.changeSelectedfloor(floor);
   store.turnfloor(floor, router);
 };
-const floorlist = countfloor(store.floor);
 </script>
 <style scoped>
 body {

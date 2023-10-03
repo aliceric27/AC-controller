@@ -1,4 +1,5 @@
 <template>
+  <FloorSelect />
   <div>測試 {{ $route.params.id }}</div>
 </template>
 <script setup lang="ts">

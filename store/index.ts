@@ -3,13 +3,17 @@ import { useRoute, useRouter } from "vue-router";
 
 export interface State {
   floor: number;
+  selectedfloor: null | number;
 }
 // 初始化資料
 const initState: State = {
+  // 樓層設定
   floor: 20,
+  selectedfloor: null,
 };
 // 相關fn
 const actions: any = {
+  // 計算樓層
   countfloor(floor: number): number[] {
     let result: number[] = [];
     if (floor) {
@@ -19,12 +23,17 @@ const actions: any = {
       return result;
     } else return [];
   },
-  turnfloor(floor: number, router: Router): void {
+  // 樓層頁面跳轉
+  turnfloor(floor: number, router: any): void {
     router.push({ path: `/room-page/${floor}` });
+  },
+  changeSelectedfloor(floor: number): void {
+    this.selectedfloor = floor;
+    console.log("目前樓層", this.selectedfloor);
   },
 };
 const getters: _GettersTree<State> = {
-  getTripleCount: (state) => actions.countfloor(state.floor),
+  getfloor: (state) => actions.countfloor(state.floor),
 };
 const useInfoStore = defineStore("main", {
   state: () => initState,
