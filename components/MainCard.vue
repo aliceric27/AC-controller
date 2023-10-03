@@ -1,8 +1,8 @@
 <template>
   <div class="m-2 border warp">
-    <div class="border warp-in">
+    <div class="border cursor-pointer warp-in">
       <div class="flex justify-between border warp-top">
-        <p class="gold-text">1F</p>
+        <p class="gold-text">{{ props.floor }}F</p>
         <div>
           <div class="flex m-2">
             <img src="house-door.svg" alt="" />
@@ -44,14 +44,20 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+const props = defineProps({
+  //當前樓層資料
+  floor: {
+    type: Number,
+    required: true,
+  },
+});
+</script>
 <style scoped>
 .warp {
   width: 17.5rem;
   height: max-content;
   background-color: aliceblue;
-}
-.warp-top {
 }
 .grey-text {
   color: #717171;
