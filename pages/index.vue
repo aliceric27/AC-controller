@@ -1,9 +1,11 @@
 <template>
   <div class="warp">
+    <AirCard />
     <!-- Header -->
     <Theheader />
     <!-- 樓層卡片資料 -->
     <div class="flex flex-col items-center">
+      <Floorlist />
       <div v-for="val in floorlist">
         <MainCard :floor="val" @click="turnfloor(val)" />
       </div>
@@ -25,7 +27,7 @@ const turnfloor = (floor: number) => {
 </script>
 <style scoped>
 body {
-  height: 100%;
+  height: 100vh;
   width: 100%;
 }
 .warp {

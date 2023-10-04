@@ -4,12 +4,18 @@ import { useRoute, useRouter } from "vue-router";
 export interface State {
   floor: number;
   selectedfloor: null | number;
+  roomStateMode: string;
+  roomStateWind: string;
+  fanspeed: number;
 }
 // 初始化資料
 const initState: State = {
   // 樓層設定
   floor: 20,
   selectedfloor: null,
+  roomStateMode: "wind",
+  roomStateWind: "auto",
+  fanspeed: 3,
 };
 // 相關fn
 const actions: any = {
