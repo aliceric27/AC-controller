@@ -1,5 +1,7 @@
 <template>
+  <!-- online card -->
   <div
+    v-if="DeviceOnline"
     class="inline-flex flex-col items-start justify-center w-56 bg-green-300 shadow h-36 rounded-xl"
   >
     <!-- 上層房號 -->
@@ -50,17 +52,7 @@
         <div class="justify-start items-center gap-1.5 flex">
           <!-- 風扇模式 -->
           <div class="flex">
-            <img
-              src="/roomStateWind_Auto/roomStateWind_Auto_nonAuto.png"
-              alt="noauto"
-              v-if="!isWindauto"
-            />
-
-            <img
-              src="/roomStateWind_Auto/roomStateWind_Auto_Auto.png"
-              alt="auto"
-              v-if="isWindauto"
-            />
+            <img :src="`/roomStateWind_Auto/${isWindauto}`" alt="noauto" />
           </div>
           <div
             class="text-neutral-500 text-xl font-bold font-['Microsoft JhengHei UI'] leading-relaxed"
@@ -75,10 +67,34 @@
       </div>
     </div>
   </div>
+  <!-- offline card -->
+  <div
+    v-else
+    class="inline-flex flex-col items-start justify-center w-56 bg-[#424242] shadow h-36 rounded-xl"
+  >
+    <!-- top room -->
+    <div class="w-56 h-9 px-1.5 justify-between items-center inline-flex">
+      <div
+        class="w-28 h-11 p-1 text-orange-400 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
+      >
+        501房
+      </div>
+    </div>
+    <div class="w-56 h-28 p-1.5 justify-between items-center inline-flex">
+      <div><img src="Vector_alert.svg" alt="" /></div>
+      <div
+        class="text-red-700 text-3xl font-bold font-['Microsoft JhengHei UI']"
+      >
+        設備離線
+      </div>
+      <div><img src="Vector_alert.svg" alt="" /></div>
+    </div>
+  </div>
 </template>
 <script setup lang="ts">
 import useInfoStore from "~/store/index";
 const store = useInfoStore();
+const DeviceOnline = store.DeviceOnline;
 const WindMode = computed(() => {
   switch (store.roomStateMode) {
     case "wind":
@@ -91,7 +107,11 @@ const WindMode = computed(() => {
       return "roomStateMode-wind.png";
   }
 });
-const isWindauto = computed(() => store.roomStateWind === "auto");
+const isWindauto = computed(() =>
+  store.roomStateAuto
+    ? "roomStateWind_Auto_Auto.png"
+    : "roomStateWind_Auto_nonAuto.png"
+);
 const fanseed = computed(() => {
   switch (store.fanspeed) {
     case 0:

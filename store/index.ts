@@ -5,8 +5,9 @@ export interface State {
   floor: number;
   selectedfloor: null | number;
   roomStateMode: string;
-  roomStateWind: string;
+  roomStateAuto: boolean;
   fanspeed: number;
+  DeviceOnline: boolean;
 }
 // 初始化資料
 const initState: State = {
@@ -14,8 +15,9 @@ const initState: State = {
   floor: 20,
   selectedfloor: null,
   roomStateMode: "wind",
-  roomStateWind: "auto",
+  roomStateAuto: true,
   fanspeed: 3,
+  DeviceOnline: true,
 };
 // 相關fn
 const actions: any = {
