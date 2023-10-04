@@ -6,5 +6,6 @@
     "offline":"離線",
     "lowtmp":"低溫",
     "online":"運轉",
-    "pickfloor":"選擇樓層"
+    "pickfloor":"選擇樓層",
+    "pickroom":"選擇房間"
   }
