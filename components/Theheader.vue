@@ -2,7 +2,12 @@
   <header class="grid grid-rows-2">
     <!-- 主 Logo -->
     <div class="flex justify-center p-2">
-      <img src="/logo.png" alt="logo" />
+      <img
+        class="cursor-pointer"
+        @click="mainpage"
+        src="/logo.png"
+        alt="logo"
+      />
     </div>
     <!-- 中間部分 -->
     <div class="flex items-center justify-center">
@@ -20,7 +25,11 @@
     </div> -->
   </header>
 </template>
-<script setup></script>
+<script setup>
+import { useRouter } from "vue-router";
+const router = useRouter();
+const mainpage = () => router.push({ path: "/" });
+</script>
 
 <style scoped>
 header {

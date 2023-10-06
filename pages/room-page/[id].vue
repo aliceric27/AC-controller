@@ -1,6 +1,5 @@
 <template>
   <div class="warp">
-    <Theheader />
     <div class="inline-flex items-center justify-center w-full gold-text">
       {{ $route.params.id }}樓
     </div>
