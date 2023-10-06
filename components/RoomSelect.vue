@@ -7,7 +7,7 @@
     >
       <option value="1">{{ $t("pickroom") }}</option>
       <option v-for="val in roomlist()" :value="val">
-        {{ `${val}房` }}
+        {{ `${val}${$t("room")}` }}
       </option>
     </select>
   </div>
@@ -23,7 +23,7 @@ const handleChange = (event: Event) => {
 const selectedroom = ref(1);
 const roomlist = () => {
   let result = [];
-  for (let i = 0; i < 30; i++) {
+  for (let i = 501; i < 520; i++) {
     result.push(i);
   }
   return result;

@@ -1,3 +1,6 @@
 <template>
-  <AirCard />
+  <div>
+    <AirConrtoller />
+  </div>
 </template>
+<style scoped></style>

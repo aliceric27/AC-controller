@@ -7,5 +7,6 @@
     "lowtmp":"Lowtmp",
     "online":"Online",
     "pickfloor":"Pick floor",
-    "pickroom":"Pick room"
+    "pickroom":"Pick room",
+    "room":"room"
   }

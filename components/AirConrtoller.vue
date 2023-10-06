@@ -1,0 +1,180 @@
+<template>
+  <div class="flex justify-center item-center warp">
+    <div class="w-full max-w-xs p-4 mx-4 bg-white rounded-lg shadow-md">
+      <!-- Header - 637房 -->
+      <div
+        class="p-2 mb-4 text-xl font-bold text-center bg-green-200 rounded-lg"
+      >
+        637{{ $t("room") }}
+      </div>
+
+      <!-- Temperature Controls -->
+      <div class="flex flex-col mb-4 space-y-4">
+        <!-- 室內溫度 -->
+        <div class="p-4 text-center bg-gray-100 rounded-lg">
+          <p class="mb-2">室內溫度</p>
+          <p class="text-2xl">{{ `${23}°C` }}</p>
+        </div>
+
+        <!-- 設定溫度 -->
+        <div
+          class="flex flex-col items-center justify-between p-4 bg-gray-100 rounded-lg"
+        >
+          <button @click="coolswitch('up')">
+            <img
+              src="roomController/adjust_up.svg"
+              alt="增加溫度"
+              class="mb-2"
+            />
+          </button>
+          <div class="text-center">
+            <p class="mb-2">設定溫度</p>
+            <p class="text-2xl">{{ `${coolertmp}°C` }}</p>
+          </div>
+          <button @click="coolswitch('down')">
+            <img
+              src="roomController/adjust_down.svg"
+              alt="減少溫度"
+              class="mt-2"
+            />
+          </button>
+        </div>
+
+        <!-- 模式 -->
+        <div
+          class="p-4 text-center bg-gray-100 rounded-lg"
+          @click="coolermodeswitch(coolermode)"
+        >
+          <p class="mb-2">模式</p>
+          <div></div>
+          <div>
+            <div class="flex items-center justify-center">
+              <img :src="`roomStateMode2/${getmodepic('picurl')}`" alt="" />
+            </div>
+            {{ getmodepic("text") }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Wind controller -->
+      <div
+        class="flex items-center w-full h-12 p-2 my-2 space-x-4 border rounded-md bg-zinc-300 bg-opacity-30 border-neutral-200"
+      >
+        <!-- 風量文字描述 -->
+        <div class="text-xl font-bold whitespace-nowrap text-neutral-500">
+          風量
+        </div>
+
+        <!-- 風量下拉選單 -->
+        <select
+          class="w-full p-2 text-sm font-bold border-2 bg-neutral-100 rounded-2xl border-neutral-200 text-zinc-400"
+        >
+          <option value="high" class="text-white">強</option>
+          <option value="medium" class="bg-neutral-100 text-zinc-400">
+            中
+          </option>
+          <option value="low" class="bg-neutral-100 text-zinc-400">弱</option>
+          <option value="auto" class="bg-neutral-100 text-zinc-400">
+            自動
+          </option>
+        </select>
+      </div>
+      <!-- Controls Row -->
+      <!-- <div class="flex flex-col mb-4 space-y-2">
+        <button class="w-full px-4 py-2 bg-green-300 rounded-lg">風速</button>
+        <button class="w-full px-4 py-2 bg-gray-300 rounded-lg">定時</button>
+        <button class="w-full px-4 py-2 bg-gray-300 rounded-lg">模式</button>
+        <button class="w-full px-4 py-2 bg-gray-300 rounded-lg">省電</button>
+      </div> -->
+
+      <!-- Power Button -->
+      <div class="text-center">
+        <button
+          @click="Controllerswitch"
+          class="inline-flex items-center justify-center w-full px-6 py-2rounded-lg"
+        >
+          <p class="m-2">電源</p>
+          <!-- ON -->
+          <div
+            v-if="controller"
+            class="flex items-center justify-center h-8 bg-green-300 border-2 border-green-400 w-28 rounded-2xl"
+          >
+            <span class="text-lg font-bold tracking-widest text-white">ON</span>
+          </div>
+          <!-- OFF -->
+          <div
+            v-else
+            class="flex items-center justify-center h-8 bg-[#e2e2e2] border-2 border-[#b4b4b4] w-28 rounded-2xl"
+          >
+            <span class="text-lg font-bold tracking-widest text-white"
+              >OFF</span
+            >
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+<script setup lang="ts">
+const controller: Ref<boolean> = ref(false);
+const coolertmp: Ref<number> = ref(23);
+const coolermode: Ref<string> = ref("cool");
+const Controllerswitch = (): void => {
+  controller.value = !controller.value;
+  console.log(controller.value);
+};
+const coolswitch = (command: string): void => {
+  switch (command) {
+    case "up":
+      coolertmp.value++;
+      break;
+    case "down":
+      coolertmp.value--;
+      break;
+  }
+};
+// 暫時寫法後續改用計算屬性
+const coolermodeswitch = (mode: string) => {
+  const allmode = ["cool", "hot", "wind"];
+  const currentIndex = allmode.indexOf(mode);
+  if (currentIndex === -1) {
+    console.error("提供的模式不在列表中");
+    return;
+  }
+
+  if (currentIndex === allmode.length - 1) {
+    coolermode.value = allmode[0];
+    console.log(coolermode.value);
+  } else {
+    coolermode.value = allmode[currentIndex + 1];
+    console.log(coolermode.value);
+  }
+};
+// 暫時寫法，後續改用計算屬性
+const getmodepic = (item: string) => {
+  if (item === "picurl") {
+    switch (coolermode.value) {
+      case "cool":
+        return "roomStateMode2-cool.png";
+      case "hot":
+        return "roomStateMode2-heating.png";
+      case "wind":
+        return "roomStateMode-wind.png";
+      default:
+        return "roomStateMode2-cool.png";
+    }
+  } else if (item === "text") {
+    switch (coolermode.value) {
+      case "cool":
+        return "冷氣";
+      case "hot":
+        return "暖氣";
+      case "wind":
+        return "送風";
+      default:
+        return "冷氣";
+    }
+  }
+};
+</script>
+<style scoped></style>

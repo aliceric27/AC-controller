@@ -1,6 +1,5 @@
 <template>
   <div class="warp">
-    <AirCard />
     <!-- Header -->
     <Theheader />
     <!-- 樓層卡片資料 -->
