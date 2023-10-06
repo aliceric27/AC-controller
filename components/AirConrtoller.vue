@@ -1,11 +1,12 @@
 <template>
-  <div class="flex justify-center item-center warp">
+  <div class="flex justify-center m-4 item-center warp">
     <div class="w-full max-w-xs p-4 mx-4 bg-white rounded-lg shadow-md">
       <!-- Header - 637房 -->
       <div
-        class="p-2 mb-4 text-xl font-bold text-center bg-green-200 rounded-lg"
+        class="p-2 mb-4 text-5xl font-bold text-center bg-green-200 rounded-lg gold-room"
+        :data-storke="$route.params.id + $t('room')"
       >
-        637{{ $t("room") }}
+        {{ $route.params.id }}{{ $t("room") }}
       </div>
 
       <!-- Temperature Controls -->
@@ -22,7 +23,7 @@
         >
           <button @click="coolswitch('up')">
             <img
-              src="roomController/adjust_up.svg"
+              src="/roomController/adjust_up.svg"
               alt="增加溫度"
               class="mb-2"
             />
@@ -33,7 +34,7 @@
           </div>
           <button @click="coolswitch('down')">
             <img
-              src="roomController/adjust_down.svg"
+              src="/roomController/adjust_down.svg"
               alt="減少溫度"
               class="mt-2"
             />
@@ -49,7 +50,7 @@
           <div></div>
           <div>
             <div class="flex items-center justify-center">
-              <img :src="`roomStateMode2/${getmodepic('picurl')}`" alt="" />
+              <img :src="`/roomStateMode2/${getmodepic('picurl')}`" alt="" />
             </div>
             {{ getmodepic("text") }}
           </div>
@@ -177,4 +178,10 @@ const getmodepic = (item: string) => {
   }
 };
 </script>
-<style scoped></style>
+<style scoped>
+.gold-room {
+  color: white;
+  -webkit-text-stroke: 2px #cb9f62;
+  z-index: 1;
+}
+</style>

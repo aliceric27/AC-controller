@@ -1,11 +1,8 @@
 <template>
   <div class="warp">
-    <div class="inline-flex items-center justify-center w-full gold-text">
-      {{ $route.params.id }}樓
-    </div>
     <Floorlist />
     <RoomSelect @change="movetoid" />
-    <AirCard :id="`id-${val}`" :room="val" v-for="val in fakeroom()" />
+    <AirConrtoller />
   </div>
 </template>
 <script setup lang="ts">
@@ -13,8 +10,8 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 // tmp fake data
 const fakeroom = () => {
-  let result = [];
-  for (let i = 501; i < 520; i++) {
+  let result: number[] = [];
+  for (let i = 0; i < 30; i++) {
     result.push(i);
   }
   return result;

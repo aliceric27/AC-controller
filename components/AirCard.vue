@@ -9,7 +9,7 @@
         <div
           class="w-28 h-11 p-1 text-orange-400 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
         >
-          501房
+          {{ props.room }}房
         </div>
         <div
           class="w-14 h-9 text-right text-green-400 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
@@ -42,7 +42,7 @@
       </div>
       <!-- 最底層資訊 -->
       <div class="inline-flex items-center justify-between w-56 h-12 px-2">
-        <div class="relative w-12 h-12">
+        <div class="w-12 h-12">
           <!-- 冷氣/送風/暖氣 -->
           <div class="flex w-12 h-12">
             <img class="p-2" :src="`/roomStateMode2/${WindMode}`" alt="mode" />
@@ -94,6 +94,13 @@
 </template>
 <script setup lang="ts">
 import useInfoStore from "~/store/index";
+const props = defineProps({
+  //當前樓層資料
+  room: {
+    type: Number,
+    required: true,
+  },
+});
 const store = useInfoStore();
 const DeviceOnline = store.DeviceOnline;
 const WindMode = computed(() => {

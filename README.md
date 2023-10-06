@@ -24,19 +24,12 @@ bun install
 
 Start the development server on `http://localhost:3000`:
 
-```bash
-# npm
-npm run dev
+````bash
 
-# pnpm
-pnpm run dev
 
 # yarn
 yarn dev
 
-# bun
-bun run dev
-```
 
 ## Production
 
@@ -54,7 +47,7 @@ yarn build
 
 # bun
 bun run build
-```
+````
 
 Locally preview production build:
 
