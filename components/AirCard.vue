@@ -1,6 +1,10 @@
 <template>
   <!-- online card -->
-  <div class="flex justify-center m-4" v-if="DeviceOnline">
+  <div
+    class="flex justify-center m-4"
+    v-if="DeviceOnline"
+    @click="controllerPage(props.room)"
+  >
     <div
       class="inline-flex flex-col items-start justify-center w-56 bg-green-300 shadow h-36 rounded-xl"
     >
@@ -94,6 +98,8 @@
 </template>
 <script setup lang="ts">
 import useInfoStore from "~/store/index";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const props = defineProps({
   //當前樓層資料
   room: {
@@ -101,6 +107,9 @@ const props = defineProps({
     required: true,
   },
 });
+const controllerPage = (room: number): void => {
+  router.push({ path: `/controller-page/${room}` });
+};
 const store = useInfoStore();
 const DeviceOnline = store.DeviceOnline;
 const WindMode = computed(() => {

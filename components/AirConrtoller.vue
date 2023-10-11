@@ -14,15 +14,17 @@
         <!-- 室內溫度 -->
         <div class="p-4 text-center bg-gray-100 rounded-lg">
           <p class="mb-2">室內溫度</p>
-          <p class="text-2xl">{{ `${23}°C` }}</p>
+          <p v-if="controller" class="text-2xl">{{ `${23}°C` }}</p>
+          <p v-else class="text-2xl">{{ `- -°C` }}</p>
         </div>
 
         <!-- 設定溫度 -->
         <div
           class="flex flex-col items-center justify-between p-4 bg-gray-100 rounded-lg"
         >
-          <button @click="coolswitch('up')">
+          <button class="flex justify-center w-full" @click="coolswitch('up')">
             <img
+              v-if="controller"
               src="/roomController/adjust_up.svg"
               alt="增加溫度"
               class="mb-2"
@@ -30,10 +32,31 @@
           </button>
           <div class="text-center">
             <p class="mb-2">設定溫度</p>
-            <p class="text-2xl">{{ `${coolertmp}°C` }}</p>
+            <div v-if="controller">
+              <p class="text-2xl" v-if="!isTmpedit" @click="isTmpedit = true">
+                {{ `${coolertmp}°C` }}
+              </p>
+              <input
+                v-else
+                type="number"
+                v-model.lazy="coolertmp"
+                @blur="isTmpedit = false"
+                class="text-2xl"
+                max="35"
+                min="15"
+                autofocus
+              />
+            </div>
+            <p v-else class="text-2xl" v-if="!isTmpedit">
+              {{ `- -°C` }}
+            </p>
           </div>
-          <button @click="coolswitch('down')">
+          <button
+            class="flex justify-center w-full"
+            @click="coolswitch('down')"
+          >
             <img
+              v-if="controller"
               src="/roomController/adjust_down.svg"
               alt="減少溫度"
               class="mt-2"
@@ -49,10 +72,11 @@
           <p class="mb-2">模式</p>
           <div></div>
           <div>
-            <div class="flex items-center justify-center">
+            <div v-if="controller" class="flex items-center justify-center">
               <img :src="`/roomStateMode2/${getmodepic('picurl')}`" alt="" />
             </div>
-            {{ getmodepic("text") }}
+            <div v-if="controller">{{ getmodepic("text") }}</div>
+            <div v-else>{{ "無" }}</div>
           </div>
         </div>
       </div>
@@ -113,13 +137,26 @@
           </div>
         </button>
       </div>
+      <!-- submit -->
+      <div class="flex flex-col justify-center">
+        <div class="checkbtn" @click="() => router.push({ path: '/' })">
+          確認
+        </div>
+        <div class="checkbtn" @click="() => router.push({ path: '/' })">
+          取消
+        </div>
+      </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
+import { useRouter } from "vue-router";
+const router = useRouter();
 const controller: Ref<boolean> = ref(false);
 const coolertmp: Ref<number> = ref(23);
 const coolermode: Ref<string> = ref("cool");
+const isTmpedit: Ref<boolean> = ref(false);
+
 const Controllerswitch = (): void => {
   controller.value = !controller.value;
   console.log(controller.value);
@@ -179,6 +216,17 @@ const getmodepic = (item: string) => {
 };
 </script>
 <style scoped>
+.checkbtn {
+  display: flex;
+  margin-top: 1rem;
+  padding: 1rem;
+  justify-content: center;
+  width: 100%;
+  border-radius: 2.6875rem;
+  border: 1.5px solid #eaeaea;
+  background: #fff;
+  box-shadow: 1px 1px 2px 0px rgba(34, 34, 34, 0.1);
+}
 .gold-room {
   color: white;
   -webkit-text-stroke: 2px #cb9f62;
