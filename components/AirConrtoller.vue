@@ -3,10 +3,9 @@
     <div class="w-full max-w-xs p-4 mx-4 bg-white rounded-lg shadow-md">
       <!-- Header - 637房 -->
       <div
-        class="p-2 mb-4 text-5xl font-bold text-center bg-green-200 rounded-lg gold-room"
-        :data-storke="$route.params.id + $t('room')"
+        class="p-2 mb-4 text-5xl font-bold text-center bg-green-200 rounded-lg"
       >
-        {{ $route.params.id }}{{ $t("room") }}
+        <p class="gold-room">{{ $route.params.id }}{{ $t("room") }}</p>
       </div>
 
       <!-- Temperature Controls -->
@@ -230,6 +229,5 @@ const getmodepic = (item: string) => {
 .gold-room {
   color: white;
   -webkit-text-stroke: 2px #cb9f62;
-  z-index: 1;
 }
 </style>

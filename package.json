@@ -19,6 +19,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",
     "pinia": "^2.1.6",
+    "socket.io-client": "^4.7.2",
     "vue-i18n": "^9.5.0"
   }
 }

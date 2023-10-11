@@ -9,8 +9,16 @@
   </div>
 </template>
 <script setup lang="ts">
+import useSocket from "~/composables/useSocket";
 import useInfoStore from "~/store/index";
 import { useRoute, useRouter } from "vue-router";
+const { socket } = useSocket("http://192.168.0.241:7777");
+socket.on("connect", () => {
+  console.log("已連接到伺服器");
+  socket.on("tmsList", (data) => {
+    console.log("message", data);
+  });
+});
 const route = useRoute();
 const router = useRouter();
 const store = useInfoStore();
