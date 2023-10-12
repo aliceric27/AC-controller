@@ -1,6 +1,5 @@
 import { defineStore, _ActionsTree, _GettersTree } from "pinia";
 import { useRoute, useRouter } from "vue-router";
-
 export interface State {
   floor: number;
   selectedfloor: null | number;
