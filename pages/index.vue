@@ -16,8 +16,11 @@ const socketStore = useSocketStore();
 socketStore.initializeSocket("http://192.168.0.241:7777");
 const router = useRouter();
 const store = useInfoStore();
-const floordata = computed(() => socketStore.floorData);
-const floorlist = computed(() => store.getfloor);
+const floordata = computed(() => {
+  console.log("floorData", socketStore.floorData);
+  return socketStore.floorData;
+});
+const floorlist = computed(() => socketStore.floorList);
 // 樓層跳轉
 const turnfloor = (floor: number) => {
   store.changeSelectedfloor(floor);

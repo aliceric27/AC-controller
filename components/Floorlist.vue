@@ -6,8 +6,8 @@
       @change="turnfloor(selectedFloor)"
     >
       <option value="1">{{ $t("pickfloor") }}</option>
-      <option v-for="val in floorlist" :value="val">
-        {{ `${val}F` }}
+      <option v-for="val in socketlist" :value="val.floorNo">
+        {{ `${val.floorNo}F` }}
       </option>
     </select>
   </div>
@@ -15,11 +15,13 @@
 <script setup lang="ts">
 import useInfoStore from "~/store/index";
 import { useRoute, useRouter } from "vue-router";
-const route = useRoute();
+import { useSocketStore } from "~/store/socketStore";
 const router = useRouter();
+const socketStore = useSocketStore();
 const store = useInfoStore();
 const selectedFloor = ref(1); // 初始化'1'
 const floorlist = store.getfloor;
+const socketlist = computed(() => socketStore.floorList);
 // 樓層跳轉
 const turnfloor = (floor: number) => {
   store.changeSelectedfloor(floor);

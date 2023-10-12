@@ -58,6 +58,7 @@ export const useSocketStore = defineStore({
           });
 
           this.socket.on("tmsList", (newData) => {
+            console.log("Socket Data", newData);
             this.data = newData;
             const { floorData, floorList } = newData.rData;
             this.floorData = floorData;
