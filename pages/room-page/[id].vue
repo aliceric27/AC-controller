@@ -5,17 +5,23 @@
     </div>
     <Floorlist />
     <RoomSelect @change="movetoid" />
-    <AirCard :id="`id-${val}`" :room="val" v-for="val in fakeroom()" />
+    <AirCard v-if="floordata.length" :room="val" v-for="val in floordata" />
   </div>
 </template>
 <script setup lang="ts">
 import { useRoute } from "vue-router";
+import useSocketStore from "~/store/socketStore";
+const socketStore = useSocketStore();
 const route = useRoute();
+const floordata = computed(() => {
+  const data = socketStore.getRoomDataByFloor(Number(route.params.id));
+  return data || []; // 如果 data 是 undefined，則返回空陣列
+});
 // tmp fake data
 const fakeroom = () => {
   let result = [];
   for (let i = 501; i < 520; i++) {
-    result.push(i);
+    result.push(String(i));
   }
   return result;
 };

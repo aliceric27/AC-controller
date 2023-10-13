@@ -6,21 +6,38 @@
       @change="handleChange"
     >
       <option value="1">{{ $t("pickroom") }}</option>
-      <option v-for="val in roomlist()" :value="val">
-        {{ `${val}${$t("room")}` }}
+      <option v-for="val in floorlist" :value="val">
+        {{ `${val.roomNo}${$t("room")}` }}
       </option>
     </select>
   </div>
 </template>
 
 <script lang="ts" setup>
+interface RoomData {
+  fanSpeed: number;
+  isAuto: number;
+  isWork: number;
+  nowTemp: number;
+  roomNo: string;
+  setMode: number;
+  setTemp: number;
+}
+import useInfoStore from "~/store/InfoStore";
+import useSocketStore from "~/store/socketStore";
+const router = useRouter();
+const socketStore = useSocketStore();
+const InfoStore = useInfoStore();
+const floorlist = socketStore.getRoomDataByFloor(InfoStore.selectedfloor);
+console.log("floorlist", floorlist);
 const emit = defineEmits(["change"]);
 const handleChange = (event: Event) => {
-  const value = (event.target as HTMLSelectElement).value;
-  emit("change", Number(value)); // assuming the value is a number
+  if (typeof selectedroom.value !== "number") {
+    router.push({ path: `/controller-page/${selectedroom.value?.roomNo}` });
+  }
 };
 // tmp fake data
-const selectedroom = ref(1);
+const selectedroom: Ref<RoomData | number> = ref(1);
 const roomlist = () => {
   let result = [];
   for (let i = 501; i < 520; i++) {

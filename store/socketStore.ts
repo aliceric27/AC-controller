@@ -1,5 +1,7 @@
 import { defineStore, _ActionsTree, _GettersTree } from "pinia";
 import { io, Socket } from "socket.io-client";
+import useInfoStore from "./InfoStore";
+
 interface Data {
   rData: {
     floorData: [];
@@ -7,17 +9,19 @@ interface Data {
   };
 }
 
+interface RoomData {
+  fanSpeed: number;
+  isAuto: number;
+  isWork: number;
+  nowTemp: number;
+  roomNo: string;
+  setMode: number;
+  setTemp: number;
+}
+
 interface FloorData {
   floorNo: number;
-  roomData: {
-    fanSpeed: number;
-    isAuto: number;
-    isWork: number;
-    nowTemp: number;
-    roomNo: String;
-    setMode: number;
-    setTemp: number;
-  }[];
+  roomData: RoomData[];
 }
 
 interface FloorList {
@@ -44,11 +48,20 @@ const initState: State = {
   floorData: ref([]),
   floorList: ref([]),
 };
-export const useSocketStore = defineStore({
+
+const getters: _GettersTree<State> = {
+  getRoomDataByFloor: (state) => (floorNo: number) => {
+    const data = state.floorData?.find((data) => data.floorNo === floorNo);
+    console.log("data", data);
+    return data?.roomData || [];
+  },
+};
+
+const useSocketStore = defineStore({
   id: "socketStore",
   state: () => initState,
   actions: {
-    initializeSocket(endpoint: string) {
+    async initializeSocket(endpoint: string) {
       if (!import.meta.env.SSR) {
         if (!this.socket) {
           this.socket = io(endpoint);
@@ -56,7 +69,6 @@ export const useSocketStore = defineStore({
             this.isConnected = true;
             console.log("Connected Socket Server!");
           });
-
           this.socket.on("tmsList", (newData) => {
             console.log("Socket Data", newData);
             this.data = newData;
@@ -79,4 +91,7 @@ export const useSocketStore = defineStore({
       }
     },
   },
+  getters,
 });
+
+export default useSocketStore;

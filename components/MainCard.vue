@@ -1,12 +1,12 @@
 <template>
-  <div class="m-2 border warp">
+  <div class="m-2 border maincard-warp">
     <div class="border cursor-pointer warp-in">
       <div class="flex justify-between border warp-top">
         <p class="gold-text">{{ props.floor }}F</p>
         <div>
           <div class="flex m-2">
             <img src="house-door.svg" alt="" />
-            <p class="grey-text">房數{{ 1 + 2 }}</p>
+            <p class="grey-text">房數{{ floorlist.roomCount }}</p>
           </div>
         </div>
       </div>
@@ -16,19 +16,19 @@
           <p class="inline-block mx-2 text-2xl grey-text">
             {{ $t("turnoff") }}
           </p>
-          <span class="text-2xl grey-text">0</span>
+          <span class="text-2xl grey-text">{{ floorlist.offCount }}</span>
         </div>
         <div class="flex">
           <img class="mx-2" src="Vector_alert.svg" alt="離線" />
           <p class="inline-block mx-2 text-2xl grey-text">
             {{ $t("offline") }}
           </p>
-          <span class="text-2xl grey-text">1</span>
+          <span class="text-2xl grey-text">{{ floorlist.offLine }}</span>
         </div>
         <div class="flex">
           <img class="mx-2" src="vector.svg" alt="低溫" />
           <p class="inline-block mx-2 grey-text">{{ $t("lowtmp") }}</p>
-          <span class="text-2xl grey-text">3</span>
+          <span class="text-2xl grey-text">{{ floorlist.tooCool }}</span>
         </div>
         <div class="flex">
           <div class="mx-2 w-[1.625rem] h-[1.625rem]">
@@ -37,7 +37,7 @@
           <p class="inline-block mx-2 grey-text">
             {{ $t("online") }}
           </p>
-          <span class="text-2xl grey-text">3</span>
+          <span class="text-2xl grey-text">{{ floorlist.onCount }}</span>
         </div>
       </div>
     </div>
@@ -45,6 +45,8 @@
 </template>
 
 <script setup>
+import useSocketStore from "~/store/socketStore";
+const socketStore = useSocketStore();
 const props = defineProps({
   //當前樓層資料
   floor: {
@@ -52,12 +54,15 @@ const props = defineProps({
     required: true,
   },
 });
+const floorlist = computed(() =>
+  socketStore.floorList.find((list) => list.floorNo === props.floor)
+);
 </script>
 <style scoped>
-.warp {
+.maincard-warp {
   width: 17.5rem;
   height: max-content;
-  background-color: aliceblue;
+  background-color: #bdbdbd;
 }
 .grey-text {
   color: #717171;

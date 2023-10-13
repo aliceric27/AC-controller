@@ -9,13 +9,13 @@
   </div>
 </template>
 <script setup lang="ts">
-import useInfoStore from "~/store/index";
+import useInfoStore from "~/store/InfoStore";
+import useSocketStore from "~/store/socketStore";
 import { useRouter } from "vue-router";
-import { useSocketStore } from "~/store/socketStore";
 const socketStore = useSocketStore();
 socketStore.initializeSocket("http://192.168.0.241:7777");
 const router = useRouter();
-const store = useInfoStore();
+const InfoStore = useInfoStore();
 const floordata = computed(() => {
   console.log("floorData", socketStore.floorData);
   return socketStore.floorData;
@@ -23,8 +23,8 @@ const floordata = computed(() => {
 const floorlist = computed(() => socketStore.floorList);
 // 樓層跳轉
 const turnfloor = (floor: number) => {
-  store.changeSelectedfloor(floor);
-  store.turnfloor(floor, router);
+  InfoStore.changeSelectedfloor(floor);
+  InfoStore.turnfloor(floor, router);
 };
 </script>
 
@@ -35,5 +35,7 @@ body {
 }
 .warp {
   background: url(/image-10.png);
+  height: 100dvh;
 }
 </style>
+~/store/InfoStore

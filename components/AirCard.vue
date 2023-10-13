@@ -2,8 +2,7 @@
   <!-- online card -->
   <div
     class="flex justify-center m-4"
-    v-if="DeviceOnline"
-    @click="controllerPage(props.room)"
+    @click="controllerPage(props.room.roomNo)"
   >
     <div
       class="inline-flex flex-col items-start justify-center w-56 bg-green-300 shadow h-36 rounded-xl"
@@ -13,12 +12,19 @@
         <div
           class="w-28 h-11 p-1 text-orange-400 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
         >
-          {{ props.room }}房
+          {{ props.room.roomNo }}房
         </div>
         <div
+          v-if="DeviceOnline"
           class="w-14 h-9 text-right text-green-400 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
         >
           ON
+        </div>
+        <div
+          v-else
+          class="w-14 h-9 text-right text-neutral-500 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
+        >
+          OFF
         </div>
       </div>
       <!-- 中層室溫資訊 -->
@@ -31,7 +37,7 @@
         <div
           class="inline-flex items-center w-20 h-16 text-neutral-500 text-5xl font-bold font-['Microsoft JhengHei UI']"
         >
-          30
+          {{ props.room.nowTemp }}
         </div>
         <div
           class="w-7 h-16 text-neutral-500 text-2xl font-bold font-['Microsoft JhengHei UI'] leading-relaxed"
@@ -41,7 +47,7 @@
         <div
           class="inline-flex items-center w-20 h-16 text-center text-neutral-500 text-5xl font-bold font-['Microsoft JhengHei UI']"
         >
-          25
+          {{ props.room.setTemp }}
         </div>
       </div>
       <!-- 最底層資訊 -->
@@ -58,79 +64,76 @@
             <div class="flex">
               <img :src="`/roomStateWind_Auto/${isWindauto}`" alt="noauto" />
             </div>
-            <div
-              class="text-neutral-500 text-xl font-bold font-['Microsoft JhengHei UI'] leading-relaxed"
-            >
-              Auto
-            </div>
           </div>
           <!-- 風扇強度 -->
           <div class="">
-            <img :src="`/roomStateWind3/${fanseed}`" alt="fanspeed" />
+            <img :src="`/roomStateWind3/${fanspeed}`" alt="fanspeed" />
           </div>
         </div>
       </div>
     </div>
   </div>
   <!-- offline card -->
-  <div
-    v-else
-    class="inline-flex flex-col items-start justify-center w-56 bg-[#424242] shadow h-36 rounded-xl"
-  >
-    <!-- top room -->
-    <div class="w-56 h-9 px-1.5 justify-between items-center inline-flex">
-      <div
-        class="w-28 h-11 p-1 text-orange-400 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
-      >
-        501房
+  <div v-if="false" class="flex justify-center m-4">
+    <div
+      class="flex flex-col justify-center w-56 bg-[#424242] shadow h-36 rounded-xl"
+    >
+      <!-- top room -->
+      <div class="w-56 h-9 px-1.5 justify-between items-center inline-flex">
+        <div
+          class="w-28 h-11 p-1 text-orange-400 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
+        >
+          {{ props.room.roomNo }}房
+        </div>
       </div>
-    </div>
-    <div class="w-56 h-28 p-1.5 justify-between items-center inline-flex">
-      <div><img src="Vector_alert.svg" alt="" /></div>
-      <div
-        class="text-red-700 text-3xl font-bold font-['Microsoft JhengHei UI']"
-      >
-        設備離線
+      <div class="w-56 h-28 p-1.5 justify-between items-center inline-flex">
+        <div><img src="Vector_alert.svg" alt="" /></div>
+        <div
+          class="text-red-700 text-3xl font-bold font-['Microsoft JhengHei UI']"
+        >
+          設備離線
+        </div>
+        <div><img src="Vector_alert.svg" alt="" /></div>
       </div>
-      <div><img src="Vector_alert.svg" alt="" /></div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import useInfoStore from "~/store/index";
+import useInfoStore from "~/store/InfoStore";
 import { useRouter } from "vue-router";
+import useSocketStore from "~/store/socketStore";
 const router = useRouter();
 const props = defineProps({
   //當前樓層資料
   room: {
-    type: Number,
+    type: Object,
     required: true,
   },
 });
 const controllerPage = (room: number): void => {
   router.push({ path: `/controller-page/${room}` });
 };
-const store = useInfoStore();
-const DeviceOnline = store.DeviceOnline;
+const InfoStore = useInfoStore();
+const DeviceOnline = computed(() => props.room.isWork);
 const WindMode = computed(() => {
-  switch (store.roomStateMode) {
-    case "wind":
+  switch (props.room.setMode) {
+    case 3:
       return "roomStateMode-wind.png";
-    case "hot":
+    case 2:
       return "roomStateMode2-heating.png";
-    case "cold":
+    case 1:
       return "roomStateMode2-cool.png";
     default:
       return "roomStateMode-wind.png";
   }
 });
 const isWindauto = computed(() =>
-  store.roomStateAuto
+  props.room.isAuto
     ? "roomStateWind_Auto_Auto.png"
     : "roomStateWind_Auto_nonAuto.png"
 );
-const fanseed = computed(() => {
-  switch (store.fanspeed) {
+const fanspeed = computed(() => {
+  switch (props.room.fanSpeed) {
     case 0:
       return "roomStateWind3_non.png";
     case 1:
@@ -145,3 +148,4 @@ const fanseed = computed(() => {
 });
 </script>
 <style scoped></style>
+~/store/InfoStore

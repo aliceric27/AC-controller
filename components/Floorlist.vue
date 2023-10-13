@@ -13,19 +13,21 @@
   </div>
 </template>
 <script setup lang="ts">
-import useInfoStore from "~/store/index";
+import useInfoStore from "~/store/InfoStore";
+import useSocketStore from "~/store/socketStore";
 import { useRoute, useRouter } from "vue-router";
-import { useSocketStore } from "~/store/socketStore";
 const router = useRouter();
 const socketStore = useSocketStore();
-const store = useInfoStore();
+const InfoStore = useInfoStore();
 const selectedFloor = ref(1); // 初始化'1'
-const floorlist = store.getfloor;
+const floorlist = InfoStore.getfloor;
 const socketlist = computed(() => socketStore.floorList);
 // 樓層跳轉
 const turnfloor = (floor: number) => {
-  store.changeSelectedfloor(floor);
-  store.turnfloor(floor, router);
+  InfoStore.changeSelectedfloor(floor);
+  InfoStore.turnfloor(floor, router);
+  selectedFloor.value = 1;
 };
 </script>
 <style scoped></style>
+~/store/InfoStore

@@ -14,10 +14,10 @@
 </template>
 
 <script setup lang="ts">
-import useInfoStore from "~/store/index";
-const store = useInfoStore();
-const floorlist = store.getfloor;
-const selectedfloor = store.selectedfloor;
+import useInfoStore from "~/store/InfoStore";
+const InfoStore = useInfoStore();
+const floorlist = InfoStore.getfloor;
+const selectedfloor = InfoStore.selectedfloor;
 </script>
 
 <style scoped>
@@ -66,3 +66,4 @@ const selectedfloor = store.selectedfloor;
   letter-spacing: 0.09rem;
 } */
 </style>
+~/store/InfoStore
