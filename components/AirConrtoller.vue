@@ -13,7 +13,9 @@
         <!-- 室內溫度 -->
         <div class="p-4 text-center bg-gray-100 rounded-lg">
           <p class="mb-2">室內溫度</p>
-          <p v-if="controller" class="text-2xl">{{ `${23}°C` }}</p>
+          <p v-if="controller" class="text-2xl">
+            {{ `${roomdata.nowTemp}°C` }}
+          </p>
           <p v-else class="text-2xl">{{ `- -°C` }}</p>
         </div>
 
@@ -91,14 +93,31 @@
 
         <!-- 風量下拉選單 -->
         <select
+          v-model="fanspeedset"
           class="w-full p-2 text-sm font-bold border-2 bg-neutral-100 rounded-2xl border-neutral-200 text-zinc-400"
         >
-          <option value="high" class="text-white">強</option>
-          <option value="medium" class="bg-neutral-100 text-zinc-400">
+          <option value="high" class="text-white" :selected="fanSpeedCheck(3)">
+            強
+          </option>
+          <option
+            value="medium"
+            class="bg-neutral-100 text-zinc-400"
+            :selected="fanSpeedCheck(2)"
+          >
             中
           </option>
-          <option value="low" class="bg-neutral-100 text-zinc-400">弱</option>
-          <option value="auto" class="bg-neutral-100 text-zinc-400">
+          <option
+            value="low"
+            class="bg-neutral-100 text-zinc-400"
+            :selected="fanSpeedCheck(1)"
+          >
+            弱
+          </option>
+          <option
+            value="auto"
+            class="bg-neutral-100 text-zinc-400"
+            :selected="fanSpeedCheck(0)"
+          >
             自動
           </option>
         </select>
@@ -138,9 +157,7 @@
       </div>
       <!-- submit -->
       <div class="flex flex-col justify-center">
-        <div class="checkbtn" @click="() => router.push({ path: '/' })">
-          確認
-        </div>
+        <div class="checkbtn" @click="() => sentemite()">確認</div>
         <div class="checkbtn" @click="() => router.push({ path: '/' })">
           取消
         </div>
@@ -150,10 +167,29 @@
 </template>
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import useInfoStore from "~/store/InfoStore";
+import useSocketStore from "~/store/socketStore";
+
+const props = defineProps({
+  //當前樓層資料
+  roomNo: {
+    required: true,
+  },
+});
+const rData = ref({});
+
+const socketStore = useSocketStore();
+const InfoStore = useInfoStore();
+const floor = InfoStore.selectedfloor;
+const roomdata = computed(() =>
+  socketStore.getRoomDataByFloor(floor, props.roomNo)
+);
+console.log("roomdata", roomdata.value);
 const router = useRouter();
-const controller: Ref<boolean> = ref(false);
-const coolertmp: Ref<number> = ref(23);
-const coolermode: Ref<string> = ref("cool");
+const fanspeedset: Ref<number> = ref(roomdata.value.fanSpeed);
+const controller: Ref<boolean> = ref(roomdata.value.isWork);
+const coolertmp: Ref<number> = ref(roomdata.value.setTemp);
+const coolermode: Ref<number> = ref(roomdata.value.setMode);
 const isTmpedit: Ref<boolean> = ref(false);
 
 const Controllerswitch = (): void => {
@@ -171,8 +207,8 @@ const coolswitch = (command: string): void => {
   }
 };
 // 暫時寫法後續改用計算屬性
-const coolermodeswitch = (mode: string) => {
-  const allmode = ["cool", "hot", "wind"];
+const coolermodeswitch = (mode: number) => {
+  const allmode = [1, 2, 3];
   const currentIndex = allmode.indexOf(mode);
   if (currentIndex === -1) {
     console.error("提供的模式不在列表中");
@@ -191,26 +227,43 @@ const coolermodeswitch = (mode: string) => {
 const getmodepic = (item: string) => {
   if (item === "picurl") {
     switch (coolermode.value) {
-      case "cool":
+      case 1:
         return "roomStateMode2-cool.png";
-      case "hot":
+      case 2:
         return "roomStateMode2-heating.png";
-      case "wind":
+      case 3:
         return "roomStateMode-wind.png";
       default:
         return "roomStateMode2-cool.png";
     }
   } else if (item === "text") {
     switch (coolermode.value) {
-      case "cool":
+      case 1:
         return "冷氣";
-      case "hot":
+      case 2:
         return "暖氣";
-      case "wind":
+      case 3:
         return "送風";
       default:
         return "冷氣";
     }
+  }
+};
+
+const fanSpeedCheck = (checkitem: number) => {
+  if (roomdata && checkitem) {
+    const speednow = roomdata.value.fanSpeed;
+    return speednow === checkitem;
+  }
+};
+
+const sentemite = () => {
+  if (InfoStore.selectedfloor) {
+    roomdata.value.isWork = controller.value;
+    roomdata.value.setTemp = coolertmp.value;
+    roomdata.value.setMode = coolermode.value;
+    roomdata.value.fanSpeed = fanspeedset.value;
+    socketStore.emitRoomdata(InfoStore.selectedfloor, roomdata.value);
   }
 };
 </script>

@@ -2,20 +2,13 @@
   <div class="warp">
     <Floorlist />
     <RoomSelect @change="movetoid" />
-    <AirConrtoller />
+    <AirConrtoller :roomNo="$route.params.id" />
   </div>
 </template>
 <script setup lang="ts">
 import { useRoute } from "vue-router";
 const route = useRoute();
-// tmp fake data
-const fakeroom = () => {
-  let result: number[] = [];
-  for (let i = 0; i < 30; i++) {
-    result.push(i);
-  }
-  return result;
-};
+
 const movetoid = (event: Event) => {
   const element = event.target as HTMLElement; // 提取 target 属性
   console.log(element);
@@ -28,7 +21,7 @@ const movetoid = (event: Event) => {
 </script>
 <style scoped>
 .warp {
-  background: url(~/image-10.png);
+  background: url(image-10.png);
 }
 .gold-text {
   color: #c2a344;

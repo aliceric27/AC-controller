@@ -15,7 +15,7 @@
           {{ props.room.roomNo }}房
         </div>
         <div
-          v-if="DeviceOnline"
+          v-if="DeviceOnline === 1"
           class="w-14 h-9 text-right text-green-400 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
         >
           ON
@@ -37,7 +37,7 @@
         <div
           class="inline-flex items-center w-20 h-16 text-neutral-500 text-5xl font-bold font-['Microsoft JhengHei UI']"
         >
-          {{ props.room.nowTemp }}
+          {{ DeviceOnline === 1 ? props.room.nowTemp : "--" }}
         </div>
         <div
           class="w-7 h-16 text-neutral-500 text-2xl font-bold font-['Microsoft JhengHei UI'] leading-relaxed"
@@ -47,18 +47,21 @@
         <div
           class="inline-flex items-center w-20 h-16 text-center text-neutral-500 text-5xl font-bold font-['Microsoft JhengHei UI']"
         >
-          {{ props.room.setTemp }}
+          {{ DeviceOnline === 1 ? props.room.setTemp : "--" }}
         </div>
       </div>
       <!-- 最底層資訊 -->
       <div class="inline-flex items-center justify-between w-56 h-12 px-2">
         <div class="w-12 h-12">
           <!-- 冷氣/送風/暖氣 -->
-          <div class="flex w-12 h-12">
+          <div v-if="DeviceOnline === 1" class="flex w-12 h-12">
             <img class="p-2" :src="`/roomStateMode2/${WindMode}`" alt="mode" />
           </div>
         </div>
-        <div class="justify-end items-center gap-0.5 flex">
+        <div
+          v-if="DeviceOnline === 1"
+          class="justify-end items-center gap-0.5 flex"
+        >
           <div class="justify-start items-center gap-1.5 flex">
             <!-- 風扇模式 -->
             <div class="flex">
@@ -111,7 +114,11 @@ const props = defineProps({
   },
 });
 const controllerPage = (room: number): void => {
-  router.push({ path: `/controller-page/${room}` });
+  if (DeviceOnline.value === 1) {
+    router.push({ path: `/controller-page/${room}` });
+  } else {
+    window.alert("Device Offline");
+  }
 };
 const InfoStore = useInfoStore();
 const DeviceOnline = computed(() => props.room.isWork);

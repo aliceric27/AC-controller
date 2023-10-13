@@ -4,7 +4,7 @@
       {{ $route.params.id }}樓
     </div>
     <Floorlist />
-    <RoomSelect @change="movetoid" />
+    <RoomSelect />
     <AirCard v-if="floordata.length" :room="val" v-for="val in floordata" />
   </div>
 </template>
@@ -17,27 +17,10 @@ const floordata = computed(() => {
   const data = socketStore.getRoomDataByFloor(Number(route.params.id));
   return data || []; // 如果 data 是 undefined，則返回空陣列
 });
-// tmp fake data
-const fakeroom = () => {
-  let result = [];
-  for (let i = 501; i < 520; i++) {
-    result.push(String(i));
-  }
-  return result;
-};
-const movetoid = (event: Event) => {
-  const element = event.target as HTMLElement; // 提取 target 属性
-  console.log(element);
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
-  } else {
-    console.error("Element not found:", element);
-  }
-};
 </script>
 <style scoped>
 .warp {
-  background: url(~/image-10.png);
+  background: url(image-10.png);
 }
 .gold-text {
   color: #c2a344;

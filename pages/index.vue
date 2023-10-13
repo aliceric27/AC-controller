@@ -34,7 +34,7 @@ body {
   width: 100%;
 }
 .warp {
-  background: url(/image-10.png);
+  background: url(image-10.png);
   height: 100dvh;
 }
 </style>

@@ -50,10 +50,18 @@ const initState: State = {
 };
 
 const getters: _GettersTree<State> = {
-  getRoomDataByFloor: (state) => (floorNo: number) => {
+  getRoomDataByFloor: (state) => (floorNo: number, roomNo?: string) => {
     const data = state.floorData?.find((data) => data.floorNo === floorNo);
-    console.log("data", data);
-    return data?.roomData || [];
+    if (roomNo && data) {
+      const raw = toRaw(data);
+      console.log("data 尋找到的資料raw", raw);
+      const result = raw.roomData.find((val) => roomNo === val.roomNo);
+      console.log("return結果", result);
+      return result;
+    } else {
+      // console.log("data", data);
+      return data?.roomData || [];
+    }
   },
 };
 
@@ -81,6 +89,26 @@ const useSocketStore = defineStore({
             this.isConnected = false;
           });
         }
+      }
+    },
+    async emitRoomdata(floorNo: number, roomData: RoomData) {
+      if (this.socket && this.isConnected) {
+        // find room data to change
+        let foundroom = this.getRoomDataByFloor(floorNo, roomData.roomNo);
+
+        console.log("foundroom", foundroom);
+        // this.socket.emit("sendform", roomData);
+        // console.log("Emitted value to server:", roomData);
+      } else {
+        console.error("Socket is not connected. Cannot emit value.");
+      }
+    },
+    async emitValue(value: Data, roomData?: RoomData) {
+      if (this.socket && this.isConnected) {
+        this.socket.emit("sendform", value);
+        console.log("Emitted value to server:", value);
+      } else {
+        console.error("Socket is not connected. Cannot emit value.");
       }
     },
     disconnectSocket() {

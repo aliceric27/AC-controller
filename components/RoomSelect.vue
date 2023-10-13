@@ -34,6 +34,7 @@ const emit = defineEmits(["change"]);
 const handleChange = (event: Event) => {
   if (typeof selectedroom.value !== "number") {
     router.push({ path: `/controller-page/${selectedroom.value?.roomNo}` });
+    selectedroom.value = 1;
   }
 };
 // tmp fake data
