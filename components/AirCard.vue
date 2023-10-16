@@ -90,18 +90,21 @@
         </div>
       </div>
       <div class="w-56 h-28 p-1.5 justify-between items-center inline-flex">
-        <div><img src="Vector_alert.svg" alt="" /></div>
+        <div>
+          <img src="@svg/Vector_alert.svg" alt="" />
+          <!-- <Vectoralert types="vite-svg-loader" /> -->
+        </div>
         <div
           class="text-red-700 text-3xl font-bold font-['Microsoft JhengHei UI']"
         >
           設備離線
         </div>
-        <div><img src="Vector_alert.svg" alt="" /></div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
+import Vectoralert from "@svg/vector_alert.svg?component";
 import useInfoStore from "~/store/InfoStore";
 import { useRouter } from "vue-router";
 import useSocketStore from "~/store/socketStore";

@@ -26,7 +26,7 @@
           <button class="flex justify-center w-full" @click="coolswitch('up')">
             <img
               v-if="controller"
-              src="/roomController/adjust_up.svg"
+              src="@svg/adjust_up.svg"
               alt="增加溫度"
               class="mb-2"
             />
@@ -58,7 +58,7 @@
           >
             <img
               v-if="controller"
-              src="/roomController/adjust_down.svg"
+              src="@svg/adjust_down.svg"
               alt="減少溫度"
               class="mt-2"
             />
@@ -166,6 +166,8 @@
   </div>
 </template>
 <script setup lang="ts">
+import roomup from "@svg/adjust_up.svg?component";
+import roomdown from "@svg/adjust_down.svg?component";
 import { useRouter } from "vue-router";
 import useInfoStore from "~/store/InfoStore";
 import useSocketStore from "~/store/socketStore";

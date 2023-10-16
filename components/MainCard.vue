@@ -5,34 +5,34 @@
         <p class="gold-text">{{ props.floor }}F</p>
         <div>
           <div class="flex m-2">
-            <img src="house-door.svg" alt="" />
+            <img src="@svg/housedoor.svg" alt="" />
             <p class="grey-text">房數{{ floorlist.roomCount }}</p>
           </div>
         </div>
       </div>
       <div class="border warp-bottom">
         <div class="flex">
-          <img class="mx-2" src="power.svg" alt="關機" />
+          <img class="mx-2" src="@svg/power.svg" alt="關機" />
           <p class="inline-block mx-2 text-2xl grey-text">
             {{ $t("turnoff") }}
           </p>
           <span class="text-2xl grey-text">{{ floorlist.offCount }}</span>
         </div>
         <div class="flex">
-          <img class="mx-2" src="Vector_alert.svg" alt="離線" />
+          <img class="mx-2" src="@svg/Vector_alert.svg" alt="離線" />
           <p class="inline-block mx-2 text-2xl grey-text">
             {{ $t("offline") }}
           </p>
           <span class="text-2xl grey-text">{{ floorlist.offLine }}</span>
         </div>
         <div class="flex">
-          <img class="mx-2" src="vector.svg" alt="低溫" />
+          <img class="mx-2" src="@svg/vector.svg" alt="低溫" />
           <p class="inline-block mx-2 grey-text">{{ $t("lowtmp") }}</p>
           <span class="text-2xl grey-text">{{ floorlist.tooCool }}</span>
         </div>
         <div class="flex">
           <div class="mx-2 w-[1.625rem] h-[1.625rem]">
-            <img src="modeicon.svg" alt="運轉" />
+            <img src="@svg/modeicon.svg" alt="運轉" />
           </div>
           <p class="inline-block mx-2 grey-text">
             {{ $t("online") }}
@@ -45,6 +45,11 @@
 </template>
 
 <script setup>
+import housedoor from "@svg/housedoor.svg?component";
+import power from "@svg/power.svg?component";
+import Vector_alert from "@svg/Vector_alert.svg?component";
+import vector from "@svg/Vector_alert.svg?component";
+import modeicon from "@svg/modeicon.svg?component";
 import useSocketStore from "~/store/socketStore";
 const socketStore = useSocketStore();
 const props = defineProps({
