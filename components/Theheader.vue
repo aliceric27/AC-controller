@@ -16,6 +16,7 @@
         <h1 class="title">{{ $t("acController") }}</h1>
       </div>
     </div>
+    <P v-if="ismoke">目前為 Demo 模式 (fetche rror)</P>
     <!-- 預留部分 -->
     <!-- <div class="">
       <select v-model="$i18n.locale" name="" id="locale-select">
@@ -27,6 +28,9 @@
 </template>
 <script setup>
 import { useRouter } from "vue-router";
+import useSocketStore from "~/store/socketStore";
+const SocketStore = useSocketStore();
+const ismoke = computed(() => SocketStore.isMokemode);
 const router = useRouter();
 const mainpage = () => router.push({ path: "/" });
 </script>
