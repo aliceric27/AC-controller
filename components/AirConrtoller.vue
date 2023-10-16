@@ -98,28 +98,28 @@
         <!-- 風量下拉選單 -->
         <select
           v-model="fanspeedset"
-          class="w-full p-2 text-sm font-bold border-2 bg-neutral-100 rounded-2xl border-neutral-200 text-zinc-400"
+          class="w-full p-2 text-sm font-bold text-black border-2 bg-neutral-100 rounded-2xl border-neutral-200 lg:text-2xl"
         >
-          <option value="high" class="text-white" :selected="fanSpeedCheck(3)">
+          <option value="high" class="text-black" :selected="fanSpeedCheck(3)">
             強
           </option>
           <option
             value="medium"
-            class="bg-neutral-100 text-zinc-400"
+            class="text-black bg-neutral-100"
             :selected="fanSpeedCheck(2)"
           >
             中
           </option>
           <option
             value="low"
-            class="bg-neutral-100 text-zinc-400"
+            class="text-black bg-neutral-100"
             :selected="fanSpeedCheck(1)"
           >
             弱
           </option>
           <option
             value="auto"
-            class="bg-neutral-100 text-zinc-400"
+            class="text-black bg-neutral-100"
             :selected="fanSpeedCheck(0)"
           >
             自動
@@ -138,20 +138,20 @@
       <div class="text-center">
         <button
           @click="Controllerswitch"
-          class="inline-flex items-center justify-center w-full px-6 py-2rounded-lg"
+          class="inline-flex items-center justify-center w-full px-6 py-2rounded-lg lg:grid lg:grid-cols-2"
         >
-          <p class="m-2">電源</p>
+          <p class="m-2 lg:text-2xl">電源</p>
           <!-- ON -->
           <div
             v-if="controller"
-            class="flex items-center justify-center h-8 bg-green-300 border-2 border-green-400 w-28 rounded-2xl"
+            class="flex items-center justify-center h-8 bg-green-300 border-2 border-green-400 w-28 rounded-2xl lg:w-full lg:h-20"
           >
             <span class="text-lg font-bold tracking-widest text-white">ON</span>
           </div>
           <!-- OFF -->
           <div
             v-else
-            class="flex items-center justify-center h-8 bg-[#e2e2e2] border-2 border-[#b4b4b4] w-28 rounded-2xl"
+            class="flex items-center justify-center h-8 bg-[#e2e2e2] border-2 border-[#b4b4b4] w-28 rounded-2xl lg:w-full lg:h-20"
           >
             <span class="text-lg font-bold tracking-widest text-white"
               >OFF</span
@@ -160,9 +160,12 @@
         </button>
       </div>
       <!-- submit -->
-      <div class="flex flex-col justify-center">
+      <div class="flex flex-col justify-center lg:grid lg:grid-cols-2">
         <div class="checkbtn" @click="() => sentemite()">確認</div>
-        <div class="checkbtn" @click="() => router.push({ path: '/' })">
+        <div
+          class="checkbtn"
+          @click="() => router.push({ path: `/room-page/${floor}` })"
+        >
           取消
         </div>
       </div>
@@ -265,11 +268,13 @@ const fanSpeedCheck = (checkitem: number) => {
 
 const sentemite = () => {
   if (InfoStore.selectedfloor) {
+    console.log("ok");
     roomdata.value.isWork = controller.value;
     roomdata.value.setTemp = coolertmp.value;
     roomdata.value.setMode = coolermode.value;
     roomdata.value.fanSpeed = fanspeedset.value;
-    socketStore.emitRoomdata(InfoStore.selectedfloor, roomdata.value);
+    // socketStore.emitRoomdata(InfoStore.selectedfloor, roomdata.value);
+    router.push({ path: `/room-page/${floor}` });
   }
 };
 </script>

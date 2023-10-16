@@ -1,7 +1,7 @@
 <template>
-  <header class="grid grid-rows-2">
+  <header class="grid grid-rows lg:grid-cols-3">
     <!-- 主 Logo -->
-    <div class="flex justify-center p-2">
+    <div class="flex justify-center p-2 lg:justify-start lg:p-4">
       <img
         class="cursor-pointer"
         @click="mainpage"
@@ -11,7 +11,7 @@
     </div>
     <!-- 中間部分 -->
     <div class="flex items-center justify-center">
-      <div class="flex items-center justify-center">
+      <div class="flex items-center justify-center m-2">
         <img class="mx-2 icon-ac" src="/icon-ac.png" alt="icon-ac" />
         <h1 class="title">{{ $t("acController") }}</h1>
       </div>
