@@ -77,7 +77,9 @@ const useSocketStore = defineStore({
     async initializeSocket(endpoint: string) {
       if (!import.meta.env.SSR) {
         if (!this.socket) {
-          this.socket = io(endpoint);
+          this.socket = io(endpoint, {
+            reconnection: false,
+          });
           this.socket.on("connect", () => {
             this.isConnected = true;
             console.log("Connected Socket Server!");

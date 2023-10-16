@@ -5,7 +5,7 @@
       <img
         class="cursor-pointer"
         @click="mainpage"
-        src="/logo.png"
+        src="/Logo.png"
         alt="logo"
       />
     </div>

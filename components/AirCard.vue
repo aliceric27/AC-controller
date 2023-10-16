@@ -8,7 +8,9 @@
       class="inline-flex flex-col items-start justify-center w-56 bg-green-300 shadow h-36 rounded-xl"
     >
       <!-- 上層房號 -->
-      <div class="w-56 h-9 px-1.5 justify-between items-center inline-flex">
+      <div
+        class="whitespace-nowrap w-56 h-9 px-1.5 justify-between items-center inline-flex"
+      >
         <div
           class="w-28 h-11 p-1 text-orange-400 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
         >
@@ -22,7 +24,7 @@
         </div>
         <div
           v-else
-          class="w-14 h-9 text-right text-neutral-500 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
+          class="m-2 w-14 h-9 text-right text-neutral-500 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
         >
           OFF
         </div>
