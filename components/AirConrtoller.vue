@@ -1,6 +1,8 @@
 <template>
   <div class="flex justify-center m-4 item-center warp">
-    <div class="w-full max-w-xs p-4 mx-4 bg-white rounded-lg shadow-md">
+    <div
+      class="w-full max-w-xs p-4 mx-4 bg-white rounded-lg shadow-md lg:max-w-screen-lg"
+    >
       <!-- Header - 637房 -->
       <div
         class="p-2 mb-4 text-5xl font-bold text-center bg-green-200 rounded-lg"
@@ -9,7 +11,9 @@
       </div>
 
       <!-- Temperature Controls -->
-      <div class="flex flex-col mb-4 space-y-4">
+      <div
+        class="flex flex-col mb-4 space-y-4 lg:grid lg:grid-cols-3 lg:gap-2 lg:space-y-0"
+      >
         <!-- 室內溫度 -->
         <div class="p-4 text-center bg-gray-100 rounded-lg">
           <p class="mb-2">室內溫度</p>
