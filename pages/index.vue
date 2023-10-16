@@ -1,5 +1,6 @@
 <template>
   <div class="warp">
+    <P v-if="ismoke">目前為 Demo 模式 (fetche rror)</P>
     <div
       class="flex flex-col flex-wrap items-center gap-6 lg:grid lg:grid-cols-5"
     >
@@ -18,6 +19,7 @@ const socketStore = useSocketStore();
 socketStore.initializeSocket("http://192.168.0.241:7777");
 const router = useRouter();
 const InfoStore = useInfoStore();
+const ismoke = computed(() => socketStore.isMokemode);
 const floordata = computed(() => {
   console.log("floorData", socketStore.floorData);
   return socketStore.floorData;
