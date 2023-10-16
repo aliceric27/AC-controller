@@ -1,7 +1,9 @@
 <template>
   <div class="warp">
-    <div class="flex flex-col items-center">
-      <Floorlist />
+    <div
+      class="flex flex-col flex-wrap items-center gap-6 lg:grid lg:grid-cols-5"
+    >
+      <Floorlist class="lg:hidden" />
       <div v-for="val in floordata">
         <MainCard :floor="val.floorNo" @click="turnfloor(val.floorNo)" />
       </div>
