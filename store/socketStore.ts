@@ -1,11 +1,12 @@
 import { defineStore, _ActionsTree, _GettersTree } from "pinia";
 import { io, Socket } from "socket.io-client";
+import mokerData from "./mockrData.json";
 import useInfoStore from "./InfoStore";
 
 interface Data {
   rData: {
-    floorData: [];
-    floorList: [];
+    floorData: FloorData[];
+    floorList: FloorList[];
   };
 }
 
@@ -35,18 +36,22 @@ interface FloorList {
 
 export interface State {
   isConnected: boolean;
+  isMokemode: boolean;
   data: Ref<null | Data>;
   socket: null | Socket;
   floorData: Ref<FloorData[] | null>;
   floorList: Ref<FloorList[] | null>;
+  mockData: Ref<Data>;
 }
 // 初始化資料
 const initState: State = {
   isConnected: false,
+  isMokemode: false,
   data: ref(null),
   socket: null,
   floorData: ref([]),
   floorList: ref([]),
+  mockData: ref(mokerData),
 };
 
 const getters: _GettersTree<State> = {
@@ -77,6 +82,18 @@ const useSocketStore = defineStore({
             this.isConnected = true;
             console.log("Connected Socket Server!");
           });
+          this.socket.on("connect_error", (error) => {
+            // Notify the user
+            // console.error("Connection Error:", error);
+            // Use mock data if available
+            this.data = this.mockData;
+            const { floorData, floorList } = this.mockData.rData;
+            this.floorData = floorData;
+            this.floorList = floorList;
+            this.isMokemode = true;
+            console.log("MockData enable");
+          });
+
           this.socket.on("tmsList", (newData) => {
             console.log("Socket Data", newData);
             this.data = newData;

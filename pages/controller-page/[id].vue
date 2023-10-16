@@ -21,7 +21,7 @@ const movetoid = (event: Event) => {
 </script>
 <style scoped>
 .warp {
-  background: url(image-10.png);
+  background: url(/image-10.png);
 }
 .gold-text {
   color: #c2a344;

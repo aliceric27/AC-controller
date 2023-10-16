@@ -2,9 +2,10 @@ import useSocketStore from "~/store/socketStore";
 export default defineNuxtRouteMiddleware((to, from) => {
   const socketStore = useSocketStore();
   const isConnected = socketStore.isConnected; //判斷是否連上websocket
+  const isMokemode = socketStore.isMokemode;
   // const hasPermission = false; // 判斷有無頁面權限
   if (to.path !== "/") {
-    if (!isConnected) {
+    if (!isConnected && !isMokemode) {
       return navigateTo("/");
     }
   }
