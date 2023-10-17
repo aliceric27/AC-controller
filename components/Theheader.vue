@@ -16,7 +16,7 @@
         <h1 class="title">{{ $t("acController") }}</h1>
       </div>
     </div>
-    <P v-if="ismoke">目前為 Demo 模式 (fetche rror)</P>
+    <p v-if="ismoke">目前為 Demo 模式 (fetch rror)</p>
     <!-- 預留部分 -->
     <!-- <div class="">
       <select v-model="$i18n.locale" name="" id="locale-select">
@@ -50,7 +50,7 @@ header {
   color: #717171;
   text-align: justify;
   font-family: Microsoft JhengHei UI;
-  font-size: 18px;
+  font-size: 24px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;

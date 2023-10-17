@@ -12,7 +12,7 @@
 
       <!-- Temperature Controls -->
       <div
-        class="flex flex-col mb-4 space-y-4 lg:grid lg:grid-cols-3 lg:gap-2 lg:space-y-0"
+        class="flex flex-col mb-4 space-y-4 lg:grid lg:grid-cols-8 lg:gap-2 lg:space-y-0"
       >
         <!-- 室內溫度 -->
         <div class="p-4 text-center bg-gray-100 rounded-lg">

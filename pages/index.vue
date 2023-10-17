@@ -15,7 +15,7 @@ import useInfoStore from "~/store/InfoStore";
 import useSocketStore from "~/store/socketStore";
 import { useRouter } from "vue-router";
 const socketStore = useSocketStore();
-socketStore.initializeSocket("http://192.168.0.241:7777");
+socketStore.initializeSocket("https://localhost");
 const router = useRouter();
 const InfoStore = useInfoStore();
 const floordata = computed(() => {

@@ -1,10 +1,11 @@
 <template>
   <div class="flex-col items-center justify-center hidden lg:flex">
-    <div class="gold-text">{{ $route.params.id }}樓</div>
-    <Floorlist />
-    <RoomSelect />
+    <!-- <div class="gold-text">{{ $route.params.id }}樓</div> -->
+    <FloorSelect hidden class="lg:flex" />
+    <Floorlist class="lg:hidden" />
+    <RoomSelect class="lg:hidden" />
   </div>
-  <div class="warp lg:grid lg:grid-cols-5 md:grid-cols-4">
+  <div class="warp lg:grid lg:grid-cols-8 md:grid-cols-5">
     <div
       class="inline-flex items-center justify-center w-full gold-text lg:hidden"
     >

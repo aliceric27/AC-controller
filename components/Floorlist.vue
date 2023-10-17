@@ -15,7 +15,6 @@
 <script setup lang="ts">
 import useInfoStore from "~/store/InfoStore";
 import useSocketStore from "~/store/socketStore";
-import { useRoute, useRouter } from "vue-router";
 const router = useRouter();
 const socketStore = useSocketStore();
 const InfoStore = useInfoStore();
