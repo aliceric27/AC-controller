@@ -1,7 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import svgLoader from "vite-svg-loader";
 import path from "path";
+import { resolve } from "path";
+function pathResolve(dir: string) {
+  return resolve(__dirname, dir);
+}
 export default defineNuxtConfig({
+  experimental: {
+    payloadExtraction: true,
+  },
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt"],
   devServer: {
@@ -15,5 +22,6 @@ export default defineNuxtConfig({
         "@svg": path.resolve(__dirname, "./Assets/svg"),
       },
     },
+    envDir: pathResolve("env"),
   },
 });

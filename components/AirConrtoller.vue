@@ -273,7 +273,7 @@ const sentemite = () => {
     roomdata.value.setTemp = coolertmp.value;
     roomdata.value.setMode = coolermode.value;
     roomdata.value.fanSpeed = fanspeedset.value;
-    // socketStore.emitRoomdata(InfoStore.selectedfloor, roomdata.value);
+    socketStore.emitRoomdata(InfoStore.selectedfloor, roomdata.value);
     router.push({ path: `/room-page/${floor}` });
   }
 };

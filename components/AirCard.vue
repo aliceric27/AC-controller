@@ -50,7 +50,7 @@
         <div
           class="inline-flex items-center w-full h-16 text-center text-neutral-500 text-3xl font-bold font-['Microsoft JhengHei UI']"
         >
-          {{ DeviceOnline === 1 ? `${props.room.nowTemp}°c` : "--" }}
+          {{ DeviceOnline === 1 ? `${props.room.setTemp}°c` : "--" }}
         </div>
       </div>
       <!-- 最底層資訊 -->

@@ -114,10 +114,9 @@ const useSocketStore = defineStore({
       if (this.socket && this.isConnected) {
         // find room data to change
         let foundroom = this.getRoomDataByFloor(floorNo, roomData.roomNo);
-
         console.log("foundroom", foundroom);
-        // this.socket.emit("sendform", roomData);
-        // console.log("Emitted value to server:", roomData);
+        this.socket.emit("sendform", roomData);
+        console.log("Emitted value to server:", roomData);
       } else {
         console.error("Socket is not connected. Cannot emit value.");
       }

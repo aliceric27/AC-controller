@@ -16,7 +16,10 @@
 
 <script setup lang="ts">
 import useInfoStore from "~/store/InfoStore";
+import useSocketStore from "~/store/socketStore";
 const InfoStore = useInfoStore();
+const socketStore = useSocketStore();
+const socketlist = computed(() => socketStore.floorList);
 const router = useRouter();
 const floorlist = InfoStore.getfloor;
 const selectedfloor = InfoStore.selectedfloor;
