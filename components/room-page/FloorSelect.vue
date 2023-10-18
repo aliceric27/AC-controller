@@ -22,7 +22,7 @@ const socketStore = useSocketStore();
 const socketlist = computed(() => socketStore.floorList);
 const router = useRouter();
 const floorlist = InfoStore.getfloor;
-const selectedfloor = InfoStore.selectedfloor;
+const selectedfloor = computed(() => InfoStore.selectedfloor);
 const turnfloor = (floor: number) => {
   InfoStore.changeSelectedfloor(floor);
   InfoStore.turnfloor(floor, router);
@@ -60,7 +60,7 @@ const turnfloor = (floor: number) => {
   cursor: pointer;
 }
 .floor-selected {
-  width: 7.16669rem;
+  width: 5rem;
   padding: 0.3125rem 1.25rem;
   gap: 0.625rem;
   border: 1px solid #c2a344;
