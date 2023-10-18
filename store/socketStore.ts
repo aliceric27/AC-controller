@@ -2,7 +2,8 @@ import { defineStore, _ActionsTree, _GettersTree } from "pinia";
 import { io, Socket } from "socket.io-client";
 import mokerData from "./mockrData.json";
 import useInfoStore from "./InfoStore";
-
+import createReminderDialog from "~/components/controller-page/reminderDialog";
+const reminderDialog = createReminderDialog();
 interface Data {
   rData: {
     floorData: FloorData[];
@@ -116,18 +117,29 @@ const useSocketStore = defineStore({
     async emitRoomdata(floorNo: number, roomData: RoomData) {
       if (this.socket && this.isConnected) {
         // find room data to change
-        let foundroom = this.getRoomDataByFloor(floorNo, roomData.roomNo);
-        console.log("foundroom", foundroom);
-        this.socket.emit("sendform", roomData);
-        console.log("Emitted value to server:", roomData);
+        const result = roomData;
+        console.log("即將送出資料", result);
+        const floorIndex: any = this.data?.rData.floorData.findIndex(
+          (f) => f.floorNo === floorNo
+        );
+        const roomIndex = this.data?.rData.floorData[
+          floorIndex
+        ].roomData.findIndex((r) => r.roomNo === roomData.roomNo);
+        if (this.data && floorIndex && roomIndex) {
+          this.data.rData.floorData[floorIndex].roomData[roomIndex] = roomData;
+        }
+        this.socket.emit("sendform", result);
+        // console.log("foundroom", foundroom);
+        reminderDialog.show(3, "資料修改成功", "#ff4500");
+        console.log("Emitted value to server:", toRaw(this.data));
       } else {
         console.error("Socket is not connected. Cannot emit value.");
       }
     },
     async emitValue(value: Data, roomData?: RoomData) {
       if (this.socket && this.isConnected) {
-        this.socket.emit("sendform", value);
-        console.log("Emitted value to server:", value);
+        // this.socket.emit("sendform", value);
+        console.log("Emitted value to server:", roomData);
       } else {
         console.error("Socket is not connected. Cannot emit value.");
       }

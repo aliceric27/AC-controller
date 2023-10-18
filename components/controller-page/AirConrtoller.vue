@@ -119,6 +119,7 @@
 
       <!-- Wind controller -->
       <div
+        v-if="controller"
         class="flex items-center w-full h-12 p-2 my-2 space-x-4 border rounded-md bg-zinc-300 bg-opacity-30 border-neutral-200"
       >
         <!-- 風量文字描述 -->
@@ -131,27 +132,27 @@
           v-model="fanspeedset"
           class="w-full p-2 text-sm font-bold text-black border-2 bg-neutral-100 rounded-2xl border-neutral-200 lg:text-2xl"
         >
-          <option value="high" class="text-black" :selected="fanSpeedCheck(3)">
+          <option value="3" class="text-black" :selected="fanSpeedCheck('3')">
             強
           </option>
           <option
-            value="medium"
+            value="2"
             class="text-black bg-neutral-100"
-            :selected="fanSpeedCheck(2)"
+            :selected="fanSpeedCheck('2')"
           >
             中
           </option>
           <option
-            value="low"
+            value="1"
             class="text-black bg-neutral-100"
-            :selected="fanSpeedCheck(1)"
+            :selected="fanSpeedCheck('1')"
           >
             弱
           </option>
           <option
-            value="auto"
+            value="A"
             class="text-black bg-neutral-100"
-            :selected="fanSpeedCheck(0)"
+            :selected="fanSpeedCheck('A')"
           >
             自動
           </option>
@@ -167,7 +168,13 @@
 
       <!-- submit -->
       <div class="flex flex-col justify-center lg:grid lg:grid-cols-2">
-        <div class="checkbtn" @click="() => sentemite()">確認</div>
+        <div
+          class="checkbtn"
+          :class="{ dataupdate: isDataupdate }"
+          @click="() => sentemite()"
+        >
+          確認
+        </div>
         <div
           class="checkbtn"
           @click="() => router.push({ path: `/room-page/${floor}` })"
@@ -191,7 +198,6 @@ const props = defineProps({
     required: true,
   },
 });
-const rData = ref({});
 
 const socketStore = useSocketStore();
 const InfoStore = useInfoStore();
@@ -201,11 +207,19 @@ const roomdata = ref(
   computed(() => socketStore.getRoomDataByFloor(floor, selectedroom.value))
 );
 const router = useRouter();
-const fanspeedset: Ref<number> = ref(roomdata.value.fanSpeed);
+const fanspeedset = ref(roomdata.value.fanSpeed);
 const controller: Ref<boolean> = ref(roomdata.value.isWork);
 const coolertmp: Ref<number> = ref(roomdata.value.setTemp);
 const coolermode: Ref<number> = ref(roomdata.value.setMode);
 const isTmpedit: Ref<boolean> = ref(false);
+const isDataupdate: Ref<boolean> = ref(false);
+const isFirstRun: Ref<boolean> = ref(true);
+const localrData = reactive({
+  fanspeedset,
+  controller,
+  coolertmp,
+  coolermode,
+});
 
 const Controllerswitch = (): void => {
   controller.value = !controller.value;
@@ -225,10 +239,10 @@ const coolswitch = (command: string): void => {
 const coolermodeswitch = (mode: number) => {
   const allmode = [1, 2, 3];
   const currentIndex = allmode.indexOf(mode);
-  if (currentIndex === -1) {
-    console.error("提供的模式不在列表中");
-    return;
-  }
+  // if (currentIndex === -1) {
+  //   console.error("提供的模式不在列表中");
+  //   return;
+  // }
 
   if (currentIndex === allmode.length - 1) {
     coolermode.value = allmode[0];
@@ -265,22 +279,49 @@ const getmodepic = (item: string) => {
   }
 };
 
-const fanSpeedCheck = (checkitem: number) => {
+const fanSpeedCheck = (checkitem: String) => {
   if (roomdata && checkitem) {
     const speednow = roomdata.value.fanSpeed;
     return speednow === checkitem;
   }
 };
 
+const checkDatavaild = () => {
+  if (roomdata.value.isWork !== 0 && roomdata.value.isWork !== 1) {
+    if (roomdata.value.isWork === 1) {
+      if (!roomdata.value.setTemp) {
+        window.alert("溫度設定錯誤");
+        return false;
+      }
+      if (!roomdata.value.setMode) {
+        window.alert("模式設定錯誤");
+        return false;
+      }
+      if (roomdata.value.fanSpeed) {
+        let a = roomdata.value.fanSpeed;
+        if (a !== "A" || a !== "3" || a !== "2" || a !== "1")
+          window.alert("轉速設定錯誤");
+        return false;
+      }
+    }
+    console.log(roomdata.value.isWork);
+    window.alert("isWork not set");
+    return false;
+  }
+  return true;
+};
+
 const sentemite = () => {
   if (InfoStore.selectedfloor) {
     console.log("ok");
-    roomdata.value.isWork = controller.value;
-    roomdata.value.setTemp = coolertmp.value;
+    roomdata.value.isWork = controller.value ? 1 : 0;
+    roomdata.value.setTemp = String(coolertmp.value);
     roomdata.value.setMode = coolermode.value;
-    roomdata.value.fanSpeed = fanspeedset.value;
-    socketStore.emitRoomdata(InfoStore.selectedfloor, roomdata.value);
-    router.push({ path: `/room-page/${floor}` });
+    roomdata.value.fanSpeed = String(fanspeedset.value);
+    if (checkDatavaild()) {
+      socketStore.emitRoomdata(InfoStore.selectedfloor, roomdata.value);
+      router.push({ path: `/room-page/` });
+    }
   }
 };
 watch(
@@ -295,8 +336,39 @@ watch(
     }
   }
 );
+
+watch(
+  () => localrData,
+  (newVal, oldVal) => {
+    if (isFirstRun.value) {
+      isFirstRun.value = false;
+      return;
+    }
+    console.log("data changed");
+    isDataupdate.value = true;
+  },
+  { deep: true, immediate: true }
+);
 </script>
 <style scoped>
+@keyframes scaleAnimation {
+  0% {
+    transform: scale(1);
+    background: initial;
+  }
+  50% {
+    transform: scale(1.05);
+    background: #0cdc1af3;
+  }
+  100% {
+    transform: scale(1);
+    background: initial;
+  }
+}
+.dataupdate {
+  animation: scaleAnimation 1s ease infinite;
+  background: #0cdc1af3;
+}
 .checkbtn {
   display: flex;
   margin-top: 1rem;
