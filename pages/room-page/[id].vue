@@ -28,6 +28,7 @@ const floordata = computed(() => {
 </script>
 <style scoped>
 .warp {
+  height: 100vh;
   background: url(/image-10.png);
 }
 .gold-text {
