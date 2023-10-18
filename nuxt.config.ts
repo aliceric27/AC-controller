@@ -10,6 +10,11 @@ export default defineNuxtConfig({
   experimental: {
     payloadExtraction: true,
   },
+  components: [
+    { path: "~/components/room-page" },
+    { path: "~/components/controller-page" },
+    "~/components",
+  ],
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt"],
   devServer: {

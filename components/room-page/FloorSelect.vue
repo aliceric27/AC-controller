@@ -1,13 +1,13 @@
 <template>
   <div class="inline-flex max-w-full overflow-auto divline">
-    <div v-for="val in floorlist">
+    <div v-for="val in socketlist">
       <div class="inline-flex items-center gap-2">
         <div
-          :class="{ 'floor-selected': val === selectedfloor }"
+          :class="{ 'floor-selected': val.floorNo === selectedfloor }"
           class="flex items-center justify-center floor"
-          @click="turnfloor(val)"
+          @click="turnfloor(val.floorNo)"
         >
-          {{ val }}F
+          {{ val.floorNo }}F
         </div>
       </div>
     </div>
@@ -90,6 +90,7 @@ const turnfloor = (floor: number) => {
   letter-spacing: 0.09rem;
 } */
 .divline {
+  margin: 0 1rem;
   padding: 1rem 0;
   border-bottom: 2px solid#7171718f;
 }

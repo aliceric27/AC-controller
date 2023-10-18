@@ -32,7 +32,7 @@ const actions: any = {
   },
   // 樓層頁面跳轉
   turnfloor(floor: number, router: any): void {
-    router.push({ path: `/room-page/${floor}` });
+    router.push({ path: `/room-page/` });
     console.log("turned");
   },
   changeSelectedfloor(floor: number): void {
