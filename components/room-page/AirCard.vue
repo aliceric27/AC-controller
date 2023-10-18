@@ -113,6 +113,10 @@
 </template>
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import useInfoStore from "~/store/InfoStore";
+const InfoStore = useInfoStore();
+// const selectedroom = computed(() => InfoStore.selectedroom);
+const changeSelectedroom = InfoStore.changeSelectedroom;
 const router = useRouter();
 const props = defineProps({
   //當前樓層資料
@@ -121,12 +125,9 @@ const props = defineProps({
     required: true,
   },
 });
-const controllerPage = (room: number): void => {
-  if (DeviceOnline.value === 1) {
-    router.push({ path: `/controller-page/${room}` });
-  } else {
-    window.alert("Device Offline");
-  }
+const controllerPage = (room: string): void => {
+  changeSelectedroom(room);
+  router.push({ path: `/controller-page/` });
 };
 const DeviceOnline = computed(() => props.room.isWork);
 const WindMode = computed(() => {

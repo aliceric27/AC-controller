@@ -9,10 +9,8 @@
       <div
         class="inline-flex items-center justify-center w-full gold-text lg:hidden"
       >
-        {{ $route.params.id }}樓
+        {{ selectedfloor }}樓
       </div>
-      <Floorlist class="lg:hidden" />
-      <RoomSelect class="lg:hidden" />
       <AirCard v-if="floordata.length" :room="val" v-for="val in floordata" />
     </div>
   </div>
@@ -36,5 +34,14 @@ const floordata = computed(() => {
 .warp {
   background: url(/image-10.png);
   height: 100vh;
+}
+.gold-text {
+  color: #c2a344;
+  font-family: Microsoft JhengHei UI;
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: 0.25rem;
 }
 </style>

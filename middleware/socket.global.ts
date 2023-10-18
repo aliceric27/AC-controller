@@ -4,6 +4,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
   const isConnected = socketStore.isConnected; //判斷是否連上websocket
   const isMokemode = socketStore.isMokemode;
   const hasPermission = false; // 判斷有無頁面權限
+  // check socket is online
   if (to.path !== "/") {
     if (!isConnected && !isMokemode) {
       return navigateTo("/");

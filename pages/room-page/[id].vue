@@ -5,7 +5,7 @@
     <Floorlist class="lg:hidden" />
     <RoomSelect class="lg:hidden" />
   </div>
-  <div class="p-4 warp lg:grid lg:grid-cols-8 md:grid-cols-5">
+  <div class="grid-flow-row p-4 warp lg:grid lg:grid-cols-8 lg: md:grid-cols-2">
     <div
       class="inline-flex items-center justify-center w-full gold-text lg:hidden"
     >

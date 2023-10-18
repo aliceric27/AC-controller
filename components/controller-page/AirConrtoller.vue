@@ -5,17 +5,48 @@
     >
       <!-- Header - 637房 -->
       <div
-        class="p-2 mb-4 text-5xl font-bold text-center bg-green-200 rounded-lg"
+        class="grid grid-cols-3 p-2 mb-4 text-5xl font-bold text-centerrounded-lg"
+        :class="{ 'bg-green-200': controller, 'bg-[#e2e2e2]': !controller }"
       >
-        <p class="gold-room">{{ $route.params.id }}{{ $t("room") }}</p>
+        <div></div>
+        <p class="text-center gold-room">{{ selectedroom }}{{ $t("room") }}</p>
+        <!-- Power Button -->
+        <div class="text-center">
+          <button
+            @click="Controllerswitch"
+            class="inline-flex items-center justify-center w-full px-6 py-2rounded-lg lg:grid lg:grid-cols-2"
+          >
+            <p class="my-2 lg:text-2xl">電源</p>
+            <!-- ON -->
+            <div
+              v-if="controller"
+              class="flex items-center justify-center w-20 h-8 bg-green-300 border-2 border-green-400 rounded-2xl lg:w-1/2 lg:h-2/3"
+            >
+              <span class="text-lg font-bold tracking-widest text-white"
+                >ON</span
+              >
+            </div>
+            <!-- OFF -->
+            <div
+              v-else
+              class="flex items-center justify-center h-8 bg-[#e2e2e2] border-2 border-[#b4b4b4] w-28 rounded-2xl lg:w-1/2 lg:h-2/3"
+            >
+              <span class="text-lg font-bold tracking-widest text-white"
+                >OFF</span
+              >
+            </div>
+          </button>
+        </div>
       </div>
 
       <!-- Temperature Controls -->
       <div
-        class="flex flex-col mb-4 space-y-4 lg:grid lg:grid-cols-8 lg:gap-2 lg:space-y-0"
+        class="flex flex-col items-center mb-4 space-y-4 lg:grid lg:grid-cols-3 lg:gap-2 lg:space-y-0"
       >
         <!-- 室內溫度 -->
-        <div class="p-4 text-center bg-gray-100 rounded-lg">
+        <div
+          class="flex flex-col items-center justify-center w-full h-full p-4 text-center bg-gray-100 rounded-lg"
+        >
           <p class="mb-2">室內溫度</p>
           <p v-if="controller" class="text-2xl">
             {{ `${roomdata.nowTemp}°C` }}
@@ -25,7 +56,7 @@
 
         <!-- 設定溫度 -->
         <div
-          class="flex flex-col items-center justify-between p-4 bg-gray-100 rounded-lg"
+          class="flex flex-col items-center justify-between w-full h-full p-4 bg-gray-100 rounded-lg"
         >
           <button class="flex justify-center w-full" @click="coolswitch('up')">
             <img
@@ -71,7 +102,7 @@
 
         <!-- 模式 -->
         <div
-          class="p-4 text-center bg-gray-100 rounded-lg"
+          class="flex flex-col justify-center w-full h-full p-4 text-center bg-gray-100 rounded-lg cursor-pointer"
           @click="coolermodeswitch(coolermode)"
         >
           <p class="mb-2">模式</p>
@@ -134,31 +165,6 @@
         <button class="w-full px-4 py-2 bg-gray-300 rounded-lg">省電</button>
       </div> -->
 
-      <!-- Power Button -->
-      <div class="text-center">
-        <button
-          @click="Controllerswitch"
-          class="inline-flex items-center justify-center w-full px-6 py-2rounded-lg lg:grid lg:grid-cols-2"
-        >
-          <p class="m-2 lg:text-2xl">電源</p>
-          <!-- ON -->
-          <div
-            v-if="controller"
-            class="flex items-center justify-center h-8 bg-green-300 border-2 border-green-400 w-28 rounded-2xl lg:w-full lg:h-20"
-          >
-            <span class="text-lg font-bold tracking-widest text-white">ON</span>
-          </div>
-          <!-- OFF -->
-          <div
-            v-else
-            class="flex items-center justify-center h-8 bg-[#e2e2e2] border-2 border-[#b4b4b4] w-28 rounded-2xl lg:w-full lg:h-20"
-          >
-            <span class="text-lg font-bold tracking-widest text-white"
-              >OFF</span
-            >
-          </div>
-        </button>
-      </div>
       <!-- submit -->
       <div class="flex flex-col justify-center lg:grid lg:grid-cols-2">
         <div class="checkbtn" @click="() => sentemite()">確認</div>
@@ -190,10 +196,8 @@ const rData = ref({});
 const socketStore = useSocketStore();
 const InfoStore = useInfoStore();
 const floor = InfoStore.selectedfloor;
-const roomdata = computed(() =>
-  socketStore.getRoomDataByFloor(floor, props.roomNo)
-);
-console.log("roomdata", roomdata.value);
+const selectedroom = computed(() => InfoStore.selectedroom);
+const roomdata = ref(socketStore.getRoomDataByFloor(floor, selectedroom.value));
 const router = useRouter();
 const fanspeedset: Ref<number> = ref(roomdata.value.fanSpeed);
 const controller: Ref<boolean> = ref(roomdata.value.isWork);

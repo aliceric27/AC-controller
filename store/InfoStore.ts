@@ -3,6 +3,7 @@ import { useRoute, useRouter } from "vue-router";
 export interface State {
   floor: number;
   selectedfloor: null | number;
+  selectedroom: null | string;
   roomStateMode: string;
   roomStateAuto: boolean;
   fanspeed: number;
@@ -13,6 +14,7 @@ const initState: State = {
   // 樓層設定
   floor: 20,
   selectedfloor: null,
+  selectedroom: null,
   roomStateMode: "wind",
   roomStateAuto: true,
   fanspeed: 3,
@@ -38,6 +40,10 @@ const actions: any = {
   changeSelectedfloor(floor: number): void {
     this.selectedfloor = floor;
     console.log("目前樓層", this.selectedfloor);
+  },
+  changeSelectedroom(room: string): void {
+    this.selectedroom = room;
+    console.log("目前房間", this.selectedroom);
   },
 };
 const getters: _GettersTree<State> = {

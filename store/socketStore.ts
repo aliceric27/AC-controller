@@ -59,12 +59,11 @@ const getters: _GettersTree<State> = {
     const data = state.floorData?.find((data) => data.floorNo === floorNo);
     if (roomNo && data) {
       const raw = toRaw(data);
-      console.log("data 尋找到的資料raw", raw);
       const result = raw.roomData.find((val) => roomNo === val.roomNo);
-      console.log("return結果", result);
+      console.log("getRoomDataByFloor", result);
       return result;
     } else {
-      // console.log("data", data);
+      //console.log("data", data);
       return data?.roomData || [];
     }
   },
