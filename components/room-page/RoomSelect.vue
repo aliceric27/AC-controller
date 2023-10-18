@@ -30,6 +30,7 @@ const optionval: Ref<number | string> = ref(1);
 const socketStore = useSocketStore();
 const InfoStore = useInfoStore();
 const floorlist = socketStore.getRoomDataByFloor(InfoStore.selectedfloor);
+const floor = InfoStore.selectedfloor;
 const changeSelectedroom = InfoStore.changeSelectedroom;
 const selectedroom = computed(() => InfoStore.selectedroom);
 console.log("floorlist", floorlist);
@@ -37,8 +38,6 @@ const emit = defineEmits(["change"]);
 const handleChange = (event: Event) => {
   if (typeof selectedroom !== "number") {
     const roomchangedto = toRaw(optionval.value);
-    console.log("optionval", roomchangedto);
-    console.log("selectedroom", selectedroom);
     changeSelectedroom(roomchangedto);
     router.push({ path: `/controller-page/` });
     console.log("changeoptionval", roomchangedto);

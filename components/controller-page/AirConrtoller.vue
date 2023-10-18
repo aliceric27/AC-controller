@@ -201,11 +201,11 @@ const roomdata = ref(
   computed(() => socketStore.getRoomDataByFloor(floor, selectedroom.value))
 );
 const router = useRouter();
-const fanspeedset: Ref<number> = ref(computed(() => roomdata.value.fanSpeed));
-const controller: Ref<boolean> = ref(computed(() => roomdata.value.isWork));
-const coolertmp: Ref<number> = ref(computed(() => roomdata.value.setTemp));
-const coolermode: Ref<number> = ref(computed(() => roomdata.value.setMode));
-const isTmpedit: Ref<boolean> = ref(computed(() => false));
+const fanspeedset: Ref<number> = ref(roomdata.value.fanSpeed);
+const controller: Ref<boolean> = ref(roomdata.value.isWork);
+const coolertmp: Ref<number> = ref(roomdata.value.setTemp);
+const coolermode: Ref<number> = ref(roomdata.value.setMode);
+const isTmpedit: Ref<boolean> = ref(false);
 
 const Controllerswitch = (): void => {
   controller.value = !controller.value;
@@ -283,6 +283,18 @@ const sentemite = () => {
     router.push({ path: `/room-page/${floor}` });
   }
 };
+watch(
+  () => InfoStore.selectedroom,
+  (newVal) => {
+    if (newVal) {
+      socketStore.getRoomDataByFloor(floor, selectedroom.value);
+      fanspeedset.value = roomdata.value.fanSpeed;
+      controller.value = roomdata.value.isWork;
+      coolertmp.value = roomdata.value.setTemp;
+      coolermode.value = roomdata.value.setMode;
+    }
+  }
+);
 </script>
 <style scoped>
 .checkbtn {
