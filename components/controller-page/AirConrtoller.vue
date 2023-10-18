@@ -197,13 +197,15 @@ const socketStore = useSocketStore();
 const InfoStore = useInfoStore();
 const floor = InfoStore.selectedfloor;
 const selectedroom = computed(() => InfoStore.selectedroom);
-const roomdata = ref(socketStore.getRoomDataByFloor(floor, selectedroom.value));
+const roomdata = ref(
+  computed(() => socketStore.getRoomDataByFloor(floor, selectedroom.value))
+);
 const router = useRouter();
-const fanspeedset: Ref<number> = ref(roomdata.value.fanSpeed);
-const controller: Ref<boolean> = ref(roomdata.value.isWork);
-const coolertmp: Ref<number> = ref(roomdata.value.setTemp);
-const coolermode: Ref<number> = ref(roomdata.value.setMode);
-const isTmpedit: Ref<boolean> = ref(false);
+const fanspeedset: Ref<number> = ref(computed(() => roomdata.value.fanSpeed));
+const controller: Ref<boolean> = ref(computed(() => roomdata.value.isWork));
+const coolertmp: Ref<number> = ref(computed(() => roomdata.value.setTemp));
+const coolermode: Ref<number> = ref(computed(() => roomdata.value.setMode));
+const isTmpedit: Ref<boolean> = ref(computed(() => false));
 
 const Controllerswitch = (): void => {
   controller.value = !controller.value;
