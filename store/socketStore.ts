@@ -12,10 +12,10 @@ interface Data {
 }
 
 interface RoomData {
-  fanSpeed: number;
+  fanSpeed: number | string;
   isAuto: number;
   isWork: number;
-  nowTemp: number;
+  nowTemp: number | string;
   roomNo: string;
   setMode: number;
   setTemp: number;
@@ -128,7 +128,20 @@ const useSocketStore = defineStore({
         if (this.data && floorIndex && roomIndex) {
           this.data.rData.floorData[floorIndex].roomData[roomIndex] = roomData;
         }
-        this.socket.emit("sendform", result);
+        if (result.isWork === 1) {
+          let tmp = {
+            roomNo: result.roomNo,
+            nowTemp: result.nowTemp ? 1 : "- -",
+            setTemp: result.setTemp,
+            setMode: result.setMode,
+            iscool: 0,
+            isWork: 1,
+            fanSpeed: result.fanSpeed,
+            isAuto: result.fanSpeed === "A" ? 1 : 0,
+          };
+          console.log("送出的資料result", tmp);
+          this.socket.emit("sendform", tmp);
+        } else this.socket.emit("sendform", result);
         // console.log("foundroom", foundroom);
         reminderDialog.show(3, "資料修改成功", "#ff4500");
         console.log("Emitted value to server:", toRaw(this.data));

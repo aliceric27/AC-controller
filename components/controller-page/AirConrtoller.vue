@@ -5,7 +5,7 @@
     >
       <!-- Header - 637房 -->
       <div
-        class="grid grid-cols-3 p-2 mb-4 text-5xl font-bold text-centerrounded-lg"
+        class="p-2 mb-4 text-5xl font-bold lg:grid lg:grid-cols-3 text-centerrounded-lg"
         :class="{ 'bg-green-200': controller, 'bg-[#e2e2e2]': !controller }"
       >
         <div></div>
@@ -16,7 +16,7 @@
             @click="Controllerswitch"
             class="inline-flex items-center justify-center w-full px-6 py-2rounded-lg lg:grid lg:grid-cols-2"
           >
-            <p class="my-2 lg:text-2xl">電源</p>
+            <p class="hidden my-2 lg:block lg:text-2xl">電源</p>
             <!-- ON -->
             <div
               v-if="controller"
@@ -169,7 +169,7 @@
       <!-- submit -->
       <div class="flex flex-col justify-center lg:grid lg:grid-cols-2">
         <div
-          class="checkbtn"
+          class="cursor-pointer checkbtn"
           :class="{ dataupdate: isDataupdate }"
           @click="() => sentemite()"
         >
@@ -209,7 +209,7 @@ const roomdata = ref(
 const router = useRouter();
 const fanspeedset = ref(roomdata.value.fanSpeed);
 const controller: Ref<boolean> = ref(roomdata.value.isWork);
-const coolertmp: Ref<number> = ref(roomdata.value.setTemp);
+const coolertmp: Ref<String> = ref(roomdata.value.setTemp);
 const coolermode: Ref<number> = ref(roomdata.value.setMode);
 const isTmpedit: Ref<boolean> = ref(false);
 const isDataupdate: Ref<boolean> = ref(false);
@@ -219,6 +219,7 @@ const localrData = reactive({
   controller,
   coolertmp,
   coolermode,
+  nowTemp: "- -",
 });
 
 const Controllerswitch = (): void => {
@@ -282,6 +283,7 @@ const getmodepic = (item: string) => {
 const fanSpeedCheck = (checkitem: String) => {
   if (roomdata && checkitem) {
     const speednow = roomdata.value.fanSpeed;
+    if (speednow === "4" && checkitem === "A") return true;
     return speednow === checkitem;
   }
 };
@@ -315,9 +317,12 @@ const sentemite = () => {
   if (InfoStore.selectedfloor) {
     console.log("ok");
     roomdata.value.isWork = controller.value ? 1 : 0;
-    roomdata.value.setTemp = String(coolertmp.value);
+    roomdata.value.setTemp = coolertmp.value;
     roomdata.value.setMode = coolermode.value;
-    roomdata.value.fanSpeed = String(fanspeedset.value);
+    roomdata.value.fanSpeed = fanspeedset.value;
+    roomdata.value.isAuto === "A"
+      ? (roomdata.value.isAuto = 1)
+      : (roomdata.value.isAuto = 0);
     if (checkDatavaild()) {
       socketStore.emitRoomdata(InfoStore.selectedfloor, roomdata.value);
       router.push({ path: `/room-page/` });
@@ -340,6 +345,13 @@ watch(
 watch(
   () => localrData,
   (newVal, oldVal) => {
+    if (newVal.controller) {
+      if (!newVal.coolertmp) newVal.coolertmp = "25";
+      if (!newVal.fanspeedset) newVal.fanspeedset = "A";
+      if (!newVal.coolermode) newVal.coolermode = 1;
+      if (!newVal.nowTemp) roomdata.value.nowTemp = "- -";
+      roomdata.value.iscool = 0;
+    }
     if (isFirstRun.value) {
       isFirstRun.value = false;
       return;
