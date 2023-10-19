@@ -8,6 +8,8 @@ export interface State {
   roomStateAuto: boolean;
   fanspeed: number;
   DeviceOnline: boolean;
+  isDataUpdate: boolean;
+  isFirstrun: boolean;
 }
 // 初始化資料
 const initState: State = {
@@ -19,6 +21,8 @@ const initState: State = {
   roomStateAuto: true,
   fanspeed: 3,
   DeviceOnline: true,
+  isDataUpdate: false,
+  isFirstrun: true,
 };
 // 相關fn
 const actions: any = {
@@ -44,6 +48,13 @@ const actions: any = {
   changeSelectedroom(room: string): void {
     this.selectedroom = room;
     console.log("目前房間", this.selectedroom);
+  },
+  setDataupdate(a: boolean): void {
+    this.isDataUpdate = a;
+  },
+  setFirstrun(a: boolean): void {
+    this.isFirstrun = a;
+    console.log("isFirstrun", this.isFirstrun);
   },
 };
 const getters: _GettersTree<State> = {

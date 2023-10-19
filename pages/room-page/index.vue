@@ -29,6 +29,8 @@ const floordata = computed(() => {
   const data = socketStore.getRoomDataByFloor(selectedfloor.value);
   return data.length ? data : []; // 如果 data 是 undefined，則返回空陣列
 });
+InfoStore.setDataupdate(false);
+InfoStore.setFirstrun(true);
 </script>
 <style scoped>
 .warp {

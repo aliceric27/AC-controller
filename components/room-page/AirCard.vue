@@ -145,7 +145,7 @@ const WindMode = computed(() => {
 const isWindauto = computed(() => props.room.isAuto);
 const fanspeed = computed(() => {
   switch (props.room.fanSpeed) {
-    case 0:
+    case 4:
       return "roomStateWind3_non.png";
     case 1:
       return "roomStateWind3_weak.png";

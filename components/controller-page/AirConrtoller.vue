@@ -209,11 +209,13 @@ const roomdata = ref(
 const router = useRouter();
 const fanspeedset = ref(roomdata.value.fanSpeed);
 const controller: Ref<boolean> = ref(roomdata.value.isWork);
-const coolertmp: Ref<String> = ref(roomdata.value.setTemp);
+const coolertmp: Ref<any> = ref(roomdata.value.setTemp);
 const coolermode: Ref<number> = ref(roomdata.value.setMode);
 const isTmpedit: Ref<boolean> = ref(false);
-const isDataupdate: Ref<boolean> = ref(false);
-const isFirstRun: Ref<boolean> = ref(true);
+const isDataupdate = computed(() => InfoStore.isDataUpdate);
+const isFirstRun = computed(() => InfoStore.isFirstrun);
+const setFirstrun = InfoStore.setFirstrun;
+const setUpdate = InfoStore.setDataupdate;
 const localrData = reactive({
   fanspeedset,
   controller,
@@ -223,6 +225,7 @@ const localrData = reactive({
 });
 
 const Controllerswitch = (): void => {
+  setUpdate(true);
   controller.value = !controller.value;
   console.log(controller.value);
 };
@@ -230,14 +233,17 @@ const coolswitch = (command: string): void => {
   switch (command) {
     case "up":
       coolertmp.value++;
+      setUpdate(true);
       break;
     case "down":
       coolertmp.value--;
+      setUpdate(true);
       break;
   }
 };
 // 暫時寫法後續改用計算屬性
 const coolermodeswitch = (mode: number) => {
+  setUpdate(true);
   const allmode = [1, 2, 3];
   const currentIndex = allmode.indexOf(mode);
   // if (currentIndex === -1) {
@@ -282,8 +288,8 @@ const getmodepic = (item: string) => {
 
 const fanSpeedCheck = (checkitem: String) => {
   if (roomdata && checkitem) {
+    if (!isFirstRun) setUpdate(true);
     const speednow = roomdata.value.fanSpeed;
-    if (speednow === "4" && checkitem === "A") return true;
     return speednow === checkitem;
   }
 };
@@ -315,7 +321,6 @@ const checkDatavaild = () => {
 
 const sentemite = () => {
   if (InfoStore.selectedfloor) {
-    console.log("ok");
     roomdata.value.isWork = controller.value ? 1 : 0;
     roomdata.value.setTemp = coolertmp.value;
     roomdata.value.setMode = coolermode.value;
@@ -345,19 +350,17 @@ watch(
 watch(
   () => localrData,
   (newVal, oldVal) => {
-    if (newVal.controller) {
+    if (newVal.controller && isFirstRun) {
       if (!newVal.coolertmp) newVal.coolertmp = "25";
-      if (!newVal.fanspeedset) newVal.fanspeedset = "A";
+      if (!newVal.fanspeedset || newVal.fanspeedset === 4)
+        newVal.fanspeedset = "A";
       if (!newVal.coolermode) newVal.coolermode = 1;
       if (!newVal.nowTemp) roomdata.value.nowTemp = "- -";
       roomdata.value.iscool = 0;
-    }
-    if (isFirstRun.value) {
-      isFirstRun.value = false;
+      setFirstrun(false);
       return;
     }
     console.log("data changed");
-    isDataupdate.value = true;
   },
   { deep: true, immediate: true }
 );

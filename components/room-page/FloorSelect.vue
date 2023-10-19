@@ -26,6 +26,8 @@ const selectedfloor = computed(() => InfoStore.selectedfloor);
 const turnfloor = (floor: number) => {
   InfoStore.changeSelectedfloor(floor);
   InfoStore.turnfloor(floor, router);
+  InfoStore.setDataupdate(false);
+  InfoStore.setFirstrun(true);
 };
 </script>
 
