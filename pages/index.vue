@@ -1,10 +1,10 @@
 <template>
   <div class="warp">
     <div
-      class="flex flex-col flex-wrap items-center gap-6 lg:grid lg:grid-cols-5"
+      class="flex flex-col flex-wrap items-center gap-2 lg:grid lg:grid-cols-6"
     >
       <Floorlist class="lg:hidden" />
-      <div v-for="val in floordata">
+      <div v-for="val in floordata" class="btn-scale">
         <MainCard :floor="val.floorNo" @click="turnfloor(val.floorNo)" />
       </div>
     </div>
@@ -39,5 +39,12 @@ body {
 .warp {
   background: url(/image-10.png);
   height: 100dvh;
+}
+
+.btn-scale {
+  transition: transform 0.3s ease-in-out; /* 添加此行以設定平滑過渡 */
+}
+.btn-scale:hover {
+  transform: scale(1.05);
 }
 </style>

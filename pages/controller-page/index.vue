@@ -1,8 +1,13 @@
 <template>
   <div class="warp">
-    <Floorlist />
-    <RoomSelect @change="movetoid" />
-    <AirConrtoller :roomNo="selectedroom" />
+    <div>
+      <Floorlist class="lg:hidden" />
+      <RoomSelect class="lg:hidden" @change="movetoid" />
+    </div>
+    <FloorSelect class="hidden lg:flex" />
+    <div>
+      <AirConrtoller :roomNo="selectedroom" />
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -24,6 +29,7 @@ const movetoid = (event: Event) => {
 <style scoped>
 .warp {
   background: url(/image-10.png);
+  height: 100dvh;
 }
 .gold-text {
   color: #c2a344;

@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center m-4 item-center warp">
     <div
-      class="w-full max-w-xs p-4 mx-4 bg-white rounded-lg shadow-md lg:max-w-screen-lg"
+      class="w-full max-w-xs p-4 mx-4 bg-white rounded-lg shadow-md h-max lg:max-w-screen-lg"
     >
       <!-- Header - 637房 -->
       <div
@@ -20,7 +20,7 @@
             <!-- ON -->
             <div
               v-if="controller"
-              class="flex items-center justify-center w-20 h-8 bg-green-300 border-2 border-green-400 rounded-2xl lg:w-1/2 lg:h-2/3"
+              class="flex items-center justify-center w-20 h-8 bg-green-300 border-2 border-green-400 switch-btn rounded-2xl lg:w-1/2 lg:h-2/3"
             >
               <span class="text-lg font-bold tracking-widest text-white"
                 >ON</span
@@ -29,7 +29,7 @@
             <!-- OFF -->
             <div
               v-else
-              class="flex items-center justify-center h-8 bg-[#e2e2e2] border-2 border-[#b4b4b4] w-28 rounded-2xl lg:w-1/2 lg:h-2/3"
+              class="switch-btn flex items-center justify-center h-8 bg-[#e2e2e2] border-2 border-[#b4b4b4] w-28 rounded-2xl lg:w-1/2 lg:h-2/3"
             >
               <span class="text-lg font-bold tracking-widest text-white"
                 >OFF</span
@@ -63,7 +63,7 @@
               v-if="controller"
               src="@svg/adjust_up.svg"
               alt="增加溫度"
-              class="mb-2"
+              class="mb-2 adjust-btn"
             />
           </button>
           <div class="text-center">
@@ -95,7 +95,7 @@
               v-if="controller"
               src="@svg/adjust_down.svg"
               alt="減少溫度"
-              class="mt-2"
+              class="mt-2 adjust-btn"
             />
           </button>
         </div>
@@ -108,7 +108,10 @@
           <p class="mb-2">模式</p>
           <div></div>
           <div>
-            <div v-if="controller" class="flex items-center justify-center">
+            <div
+              v-if="controller"
+              class="flex items-center justify-center switch-btn"
+            >
               <img :src="`/roomStateMode2/${getmodepic('picurl')}`" alt="" />
             </div>
             <div v-if="controller">{{ getmodepic("text") }}</div>
@@ -169,16 +172,13 @@
       <!-- submit -->
       <div class="flex flex-col justify-center lg:grid lg:grid-cols-2">
         <div
-          class="cursor-pointer checkbtn"
+          class="cursor-pointer lg:text-3xl checkbtn"
           :class="{ dataupdate: isDataupdate }"
           @click="() => sentemite()"
         >
           確認
         </div>
-        <div
-          class="checkbtn"
-          @click="() => router.push({ path: `/room-page/${floor}` })"
-        >
+        <div class="cancel-btn lg:text-3xl" @click="() => sentemite(false)">
           取消
         </div>
       </div>
@@ -319,18 +319,22 @@ const checkDatavaild = () => {
   return true;
 };
 
-const sentemite = () => {
-  if (InfoStore.selectedfloor) {
-    roomdata.value.isWork = controller.value ? 1 : 0;
-    roomdata.value.setTemp = coolertmp.value;
-    roomdata.value.setMode = coolermode.value;
-    roomdata.value.fanSpeed = fanspeedset.value;
-    roomdata.value.isAuto === "A"
-      ? (roomdata.value.isAuto = 1)
-      : (roomdata.value.isAuto = 0);
-    if (checkDatavaild()) {
-      socketStore.emitRoomdata(InfoStore.selectedfloor, roomdata.value);
-      router.push({ path: `/room-page/` });
+const sentemite = (val?: boolean) => {
+  if (val === false) {
+    router.push({ path: `/room-page/` });
+  } else {
+    if (InfoStore.selectedfloor) {
+      roomdata.value.isWork = controller.value ? 1 : 0;
+      roomdata.value.setTemp = coolertmp.value;
+      roomdata.value.setMode = coolermode.value;
+      roomdata.value.fanSpeed = fanspeedset.value;
+      roomdata.value.isAuto === "A"
+        ? (roomdata.value.isAuto = 1)
+        : (roomdata.value.isAuto = 0);
+      if (checkDatavaild()) {
+        socketStore.emitRoomdata(InfoStore.selectedfloor, roomdata.value);
+        router.push({ path: `/room-page/` });
+      }
     }
   }
 };
@@ -364,6 +368,13 @@ watch(
   },
   { deep: true, immediate: true }
 );
+
+watch(
+  () => fanspeedset.value,
+  () => {
+    setUpdate(true);
+  }
+);
 </script>
 <style scoped>
 @keyframes scaleAnimation {
@@ -381,8 +392,8 @@ watch(
   }
 }
 .dataupdate {
-  animation: scaleAnimation 1s ease infinite;
-  background: #0cdc1af3;
+  animation: scaleAnimation 2s ease infinite;
+  background: #233c25f3;
 }
 .checkbtn {
   display: flex;
@@ -392,11 +403,49 @@ watch(
   width: 100%;
   border-radius: 2.6875rem;
   border: 1.5px solid #eaeaea;
-  background: #fff;
+  background: #ffffff;
   box-shadow: 1px 1px 2px 0px rgba(34, 34, 34, 0.1);
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.checkbtn:hover {
+  background: #0cdc1af3;
 }
 .gold-room {
   color: white;
   -webkit-text-stroke: 2px #cb9f62;
+}
+.adjust-btn {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+}
+
+.adjust-btn:hover {
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  transform: translateY(3px); /* 設定懸停時的微小向下移動效果 */
+}
+
+.cancel-btn {
+  display: flex;
+  margin-top: 1rem;
+  padding: 1rem;
+  justify-content: center;
+  width: 100%;
+  border-radius: 2.6875rem;
+  border: 1.5px solid #eaeaea;
+  background: #ffffff;
+  box-shadow: 1px 1px 2px 0px rgba(34, 34, 34, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out; /* 添加 background-color 以設定平滑過渡 */
+}
+
+.cancel-btn:hover {
+  background-color: rgba(161, 0, 0, 0.704); /* 設定懸停時的背景顏色 */
+}
+.switch-btn {
+  transition: transform 0.3s ease-in-out; /* 添加此行以設定平滑過渡 */
+}
+.switch-btn:hover {
+  transform: scale(1.3);
 }
 </style>

@@ -45,11 +45,6 @@
 </template>
 
 <script setup>
-import housedoor from "@svg/housedoor.svg?component";
-import power from "@svg/power.svg?component";
-import Vector_alert from "@svg/Vector_alert.svg?component";
-import vector from "@svg/Vector_alert.svg?component";
-import modeicon from "@svg/modeicon.svg?component";
 import useSocketStore from "~/store/socketStore";
 const socketStore = useSocketStore();
 const props = defineProps({

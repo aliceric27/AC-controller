@@ -4,6 +4,7 @@ import mokerData from "./mockrData.json";
 import useInfoStore from "./InfoStore";
 import createReminderDialog from "~/components/controller-page/reminderDialog";
 const reminderDialog = createReminderDialog();
+
 interface Data {
   rData: {
     floorData: FloorData[];
@@ -102,10 +103,19 @@ const useSocketStore = defineStore({
 
           this.socket.on("tmsList", (newData) => {
             console.log("Socket Data", newData);
-            this.data = newData;
-            const { floorData, floorList } = newData.rData;
-            this.floorData = floorData;
-            this.floorList = floorList;
+            if (newData?.rData) {
+              this.data = newData;
+              const { floorData, floorList } = newData.rData;
+              this.floorData = floorData;
+              this.floorList = floorList;
+            } else {
+              this.data = this.mockData;
+              const { floorData, floorList } = this.mockData.rData;
+              this.floorData = floorData;
+              this.floorList = floorList;
+              this.isMokemode = true;
+              console.log("MockData enable");
+            }
           });
 
           this.socket.on("disconnect", () => {
@@ -115,6 +125,7 @@ const useSocketStore = defineStore({
       }
     },
     async emitRoomdata(floorNo: number, roomData: RoomData) {
+      const InfoStore = useInfoStore();
       if (this.socket && this.isConnected) {
         // find room data to change
         const result = roomData;
@@ -141,7 +152,9 @@ const useSocketStore = defineStore({
           };
           console.log("送出的資料result", tmp);
           this.socket.emit("sendform", tmp);
-        } else this.socket.emit("sendform", result);
+        } else {
+          this.socket.emit("sendform", result);
+        }
         // console.log("foundroom", foundroom);
         reminderDialog.show(3, "資料修改成功", "#ff4500");
         console.log("Emitted value to server:", toRaw(this.data));

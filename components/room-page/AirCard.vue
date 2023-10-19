@@ -1,12 +1,12 @@
 <template>
   <!-- online card -->
   <div
-    class="flex justify-center m-4 cursor-pointer"
+    class="flex justify-center m-4 cursor-pointer btn-scale"
     @click="controllerPage(props.room.roomNo)"
   >
     <div
       class="inline-flex flex-col items-start justify-center w-56 shadow lg:w-48 h-36 rounded-xl"
-      :class="{ 'bg-green-300': DeviceOnline, 'bg-gray-800': !DeviceOnline }"
+      :class="{ 'bg-green-300': DeviceOnline, 'bg-gray-300': !DeviceOnline }"
     >
       <!-- 上層房號 -->
       <div
@@ -33,15 +33,26 @@
       <!-- 中層室溫資訊 -->
       <div class="w-full h-16 pl-0.5 justify-start items-end inline-flex">
         <div
-          class="inline-flex jw-7 h-16 text-neutral-500 text-2xl font-bold font-['Microsoft JhengHei UI'] leading-relaxed"
+          class="relative inline-flex jw-7 h-16 text-neutral-500 text-2xl font-bold font-['Microsoft JhengHei UI'] leading-relaxed"
         >
           室溫
         </div>
         <div
+          v-if="DeviceOnline && props.room.nowTemp === 0"
+          class="absolute lds-ring"
+        >
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div
+          v-else
           class="inline-flex items-center w-full h-16 text-neutral-500 text-3xl font-bold font-['Microsoft JhengHei UI']"
         >
           {{ DeviceOnline === 1 ? `${props.room.nowTemp}°c` : "--" }}
         </div>
+
         <div
           class="w-7 h-16 text-neutral-500 text-2xl font-bold font-['Microsoft JhengHei UI'] leading-relaxed"
         >
@@ -170,5 +181,48 @@ const fanspeed = computed(() => {
 
 .roatefan {
   animation: rotateAnimation 2s linear infinite;
+}
+.lds-ring {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 4rem;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  margin: 8px;
+  border: 8px solid #fff;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #fff transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.btn-scale {
+  transition: transform 0.3s ease-in-out; /* 添加此行以設定平滑過渡 */
+}
+.btn-scale:hover {
+  transform: scale(1.2);
 }
 </style>

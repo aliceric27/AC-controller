@@ -11,6 +11,7 @@
       >
         {{ selectedfloor }}樓
       </div>
+
       <AirCard v-if="floordata.length" :room="val" v-for="val in floordata" />
     </div>
   </div>
