@@ -220,9 +220,9 @@ const fanspeed = computed(() => {
   }
 }
 .btn-scale {
-  transition: transform 0.3s ease-in-out; /* 添加此行以設定平滑過渡 */
+  transition: transform 0.2s ease-in-out; /* 添加此行以設定平滑過渡 */
 }
 .btn-scale:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 </style>

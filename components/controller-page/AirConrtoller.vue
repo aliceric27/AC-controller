@@ -47,7 +47,7 @@
         <div
           class="flex flex-col items-center justify-center w-full h-full p-4 text-center bg-gray-100 rounded-lg"
         >
-          <p class="mb-2">室內溫度</p>
+          <p class="mb-2 lg:text-2xl">室內溫度</p>
           <p v-if="controller" class="text-2xl">
             {{ `${roomdata.nowTemp}°C` }}
           </p>
@@ -67,7 +67,7 @@
             />
           </button>
           <div class="text-center">
-            <p class="mb-2">設定溫度</p>
+            <p class="mb-2 lg:text-2xl">設定溫度</p>
             <div v-if="controller">
               <p class="text-2xl" v-if="!isTmpedit" @click="isTmpedit = true">
                 {{ `${coolertmp}°C` }}
@@ -105,7 +105,7 @@
           class="flex flex-col justify-center w-full h-full p-4 text-center bg-gray-100 rounded-lg cursor-pointer"
           @click="coolermodeswitch(coolermode)"
         >
-          <p class="mb-2">模式</p>
+          <p class="mb-2 lg:text-2xl">模式</p>
           <div></div>
           <div>
             <div
@@ -114,7 +114,9 @@
             >
               <img :src="`/roomStateMode2/${getmodepic('picurl')}`" alt="" />
             </div>
-            <div v-if="controller">{{ getmodepic("text") }}</div>
+            <div v-if="controller" class="lg:text-2xl">
+              {{ getmodepic("text") }}
+            </div>
             <div v-else>{{ "無" }}</div>
           </div>
         </div>

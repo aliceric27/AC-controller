@@ -1,5 +1,5 @@
 <template>
-  <div class="warp">
+  <div class="warp lg:h-screen">
     <div>
       <FloorSelect class="hidden lg:flex" />
       <Floorlist class="lg:hidden" />
@@ -36,7 +36,7 @@ InfoStore.setFirstrun(true);
 <style scoped>
 .warp {
   background: url(/image-10.png);
-  height: 100vh;
+  background-repeat: repeat;
 }
 .gold-text {
   color: #c2a344;

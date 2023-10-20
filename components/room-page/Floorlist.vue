@@ -29,4 +29,3 @@ const turnfloor = (floor: number) => {
 };
 </script>
 <style scoped></style>
-~/store/InfoStore
