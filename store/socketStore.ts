@@ -93,7 +93,7 @@ const useSocketStore = defineStore({
             // Notify the user
             // Use mock data if available
             if (import.meta.env.PROD) {
-              // console.error("Connection Error:", error);
+              console.error("Connection Error:", error);
             } else {
               this.data = this.mockData;
               const { floorData, floorList } = this.mockData.rData;
