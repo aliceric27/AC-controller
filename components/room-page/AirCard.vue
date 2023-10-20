@@ -15,7 +15,7 @@
         <div
           class="w-28 h-11 p-1 text-orange-400 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
         >
-          {{ props.room.roomNo }}房
+          {{ props.room.roomNo }}{{ $t("room") }}
         </div>
         <div
           v-if="DeviceOnline === 1"
@@ -35,7 +35,7 @@
         <div
           class="relative inline-flex jw-7 h-16 text-neutral-500 text-2xl font-bold font-['Microsoft JhengHei UI'] leading-relaxed"
         >
-          室溫
+          {{ $t("roomtemperature") }}
         </div>
         <div
           v-if="DeviceOnline && props.room.nowTemp === 0"
@@ -56,7 +56,7 @@
         <div
           class="w-7 h-16 text-neutral-500 text-2xl font-bold font-['Microsoft JhengHei UI'] leading-relaxed"
         >
-          設定
+          {{ $t("settmp") }}
         </div>
         <div
           class="inline-flex items-center w-full h-16 text-center text-neutral-500 text-3xl font-bold font-['Microsoft JhengHei UI']"

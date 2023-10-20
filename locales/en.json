@@ -1,12 +1,15 @@
 {
-    "hello": "Hello, {name}!",
-    "language": "Language",
-    "acController":"AC Controller",
-    "turnoff":"Turned off",
-    "offline":"Offline",
-    "lowtmp":"Lowtmp",
-    "online":"Online",
-    "pickfloor":"Pick floor",
-    "pickroom":"Pick room",
-    "room":"room"
-  }
+  "hello": "Hello, {name}!",
+  "language": "Language",
+  "acController": "AC Controller",
+  "turnoff": "Off",
+  "offline": "Offline",
+  "lowtmp": "Lowtmp",
+  "online": "Online",
+  "pickfloor": "Pick floor",
+  "pickroom": "Pick room",
+  "room": "Rm.",
+  "totalroom": "Room",
+  "roomtemperature": "RT.",
+  "settmp": "SV."
+}

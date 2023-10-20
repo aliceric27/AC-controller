@@ -16,7 +16,13 @@
         <h1 class="title">{{ $t("acController") }}</h1>
       </div>
     </div>
-    <p v-if="ismoke">目前為 Demo 模式 (fetch rror)</p>
+    <p v-if="ismoke">Demo Mode (fetch rror)</p>
+    <div>
+      <select name="" id="" @change="changelang">
+        <option value="zh">zh</option>
+        <option value="en">en</option>
+      </select>
+    </div>
     <!-- 預留部分 -->
     <!-- <div class="">
       <select v-model="$i18n.locale" name="" id="locale-select">
@@ -24,15 +30,20 @@
         <option value="zh">中文</option>
       </select>
     </div> -->
+    <div></div>
   </header>
 </template>
 <script setup>
 import { useRouter } from "vue-router";
 import useSocketStore from "~/store/socketStore";
+import { useI18n } from "vue-i18n";
+const i18n = useI18n();
+console.log(i18n);
 const SocketStore = useSocketStore();
 const ismoke = computed(() => SocketStore.isMokemode);
 const router = useRouter();
 const mainpage = () => router.push({ path: "/" });
+const changelang = (event) => (i18n.locale.value = event.target.value);
 </script>
 
 <style scoped>

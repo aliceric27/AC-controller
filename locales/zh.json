@@ -1,12 +1,15 @@
 {
-    "hello": "你好, {name}!",
-    "language": "語言",
-    "acController":"空調節能系統",
-    "turnoff":"關機",
-    "offline":"離線",
-    "lowtmp":"低溫",
-    "online":"運轉",
-    "pickfloor":"選擇樓層",
-    "pickroom":"選擇房間",
-    "room":"房"
-  }
+  "hello": "你好, {name}!",
+  "language": "語言",
+  "acController": "空調節能系統",
+  "turnoff": "關機",
+  "offline": "離線",
+  "lowtmp": "低溫",
+  "online": "運轉",
+  "pickfloor": "選擇樓層",
+  "pickroom": "選擇房間",
+  "room": "房",
+  "totalroom": "房數",
+  "roomtemperature": "室溫",
+  "settmp": "設定"
+}

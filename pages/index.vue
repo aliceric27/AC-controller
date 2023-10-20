@@ -1,5 +1,5 @@
 <template>
-  <div class="warp">
+  <div class="warp lg:h-screen">
     <div
       class="flex flex-col flex-wrap items-center gap-2 lg:grid lg:grid-cols-6"
     >
@@ -38,7 +38,6 @@ body {
 }
 .warp {
   background: url(/image-10.png);
-  height: 100dvh;
 }
 
 .btn-scale {

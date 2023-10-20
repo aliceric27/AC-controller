@@ -6,7 +6,9 @@
         <div>
           <div class="flex m-2">
             <img src="@svg/housedoor.svg" alt="" />
-            <p class="grey-text">房數{{ floorlist.roomCount }}</p>
+            <p class="grey-text">
+              {{ $t("totalroom") }}{{ floorlist.roomCount }}
+            </p>
           </div>
         </div>
       </div>
