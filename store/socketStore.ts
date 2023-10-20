@@ -91,14 +91,17 @@ const useSocketStore = defineStore({
           });
           this.socket.on("connect_error", (error) => {
             // Notify the user
-            // console.error("Connection Error:", error);
             // Use mock data if available
-            this.data = this.mockData;
-            const { floorData, floorList } = this.mockData.rData;
-            this.floorData = floorData;
-            this.floorList = floorList;
-            this.isMokemode = true;
-            console.log("MockData enable");
+            if (import.meta.env.PROD) {
+              // console.error("Connection Error:", error);
+            } else {
+              this.data = this.mockData;
+              const { floorData, floorList } = this.mockData.rData;
+              this.floorData = floorData;
+              this.floorList = floorList;
+              this.isMokemode = true;
+              console.log("MockData enable");
+            }
           });
 
           this.socket.on("tmsList", (newData) => {
@@ -108,7 +111,7 @@ const useSocketStore = defineStore({
               const { floorData, floorList } = newData.rData;
               this.floorData = floorData;
               this.floorList = floorList;
-            } else {
+            } else if (import.meta.env.DEV) {
               this.data = this.mockData;
               const { floorData, floorList } = this.mockData.rData;
               this.floorData = floorData;
