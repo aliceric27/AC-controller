@@ -16,7 +16,7 @@
             @click="Controllerswitch"
             class="inline-flex items-center justify-center w-full px-6 py-2rounded-lg lg:grid lg:grid-cols-2"
           >
-            <p class="hidden my-2 lg:block lg:text-2xl">電源</p>
+            <p class="hidden my-2 lg:block lg:text-2xl">{{ $t("power") }}</p>
             <!-- ON -->
             <div
               v-if="controller"
@@ -47,7 +47,7 @@
         <div
           class="flex flex-col items-center justify-center w-full h-full p-4 text-center bg-gray-100 rounded-lg"
         >
-          <p class="mb-2 lg:text-2xl">室內溫度</p>
+          <p class="mb-2 lg:text-2xl">{{ $t("roomtmp") }}</p>
           <p v-if="controller" class="text-2xl">
             {{ `${roomdata.nowTemp}°C` }}
           </p>
@@ -67,7 +67,7 @@
             />
           </button>
           <div class="text-center">
-            <p class="mb-2 lg:text-2xl">設定溫度</p>
+            <p class="mb-2 lg:text-2xl">{{ $t("setedmp") }}</p>
             <div v-if="controller">
               <p class="text-2xl" v-if="!isTmpedit" @click="isTmpedit = true">
                 {{ `${coolertmp}°C` }}
@@ -105,7 +105,7 @@
           class="flex flex-col justify-center w-full h-full p-4 text-center bg-gray-100 rounded-lg cursor-pointer"
           @click="coolermodeswitch(coolermode)"
         >
-          <p class="mb-2 lg:text-2xl">模式</p>
+          <p class="mb-2 lg:text-2xl">{{ $t("modenow") }}</p>
           <div></div>
           <div>
             <div
@@ -129,7 +129,7 @@
       >
         <!-- 風量文字描述 -->
         <div class="text-xl font-bold whitespace-nowrap text-neutral-500">
-          風量
+          {{ $t("wind") }}
         </div>
 
         <!-- 風量下拉選單 -->
@@ -138,28 +138,28 @@
           class="w-full p-2 text-sm font-bold text-black border-2 bg-neutral-100 rounded-2xl border-neutral-200 lg:text-2xl"
         >
           <option value="3" class="text-black" :selected="fanSpeedCheck('3')">
-            強
+            {{ $t("strong") }}
           </option>
           <option
             value="2"
             class="text-black bg-neutral-100"
             :selected="fanSpeedCheck('2')"
           >
-            中
+            {{ $t("mid") }}
           </option>
           <option
             value="1"
             class="text-black bg-neutral-100"
             :selected="fanSpeedCheck('1')"
           >
-            弱
+            {{ $t("weak") }}
           </option>
           <option
             value="A"
             class="text-black bg-neutral-100"
             :selected="fanSpeedCheck('A')"
           >
-            自動
+            {{ $t("auto") }}
           </option>
         </select>
       </div>
@@ -178,10 +178,10 @@
           :class="{ dataupdate: isDataupdate }"
           @click="() => sentemite()"
         >
-          確認
+          {{ $t("submit") }}
         </div>
         <div class="cancel-btn lg:text-3xl" @click="() => sentemite(false)">
-          取消
+          {{ $t("cancel") }}
         </div>
       </div>
     </div>
@@ -193,7 +193,7 @@ import roomdown from "@svg/adjust_down.svg?component";
 import { useRouter } from "vue-router";
 import useInfoStore from "~/store/InfoStore";
 import useSocketStore from "~/store/socketStore";
-
+import { useI18n } from "vue-i18n";
 const props = defineProps({
   //當前樓層資料
   roomNo: {
@@ -218,6 +218,7 @@ const isDataupdate = computed(() => InfoStore.isDataUpdate);
 const isFirstRun = computed(() => InfoStore.isFirstrun);
 const setFirstrun = InfoStore.setFirstrun;
 const setUpdate = InfoStore.setDataupdate;
+const { t } = useI18n();
 const localrData = reactive({
   fanspeedset,
   controller,
@@ -277,13 +278,13 @@ const getmodepic = (item: string) => {
   } else if (item === "text") {
     switch (coolermode.value) {
       case 1:
-        return "冷氣";
+        return t("ac");
       case 2:
-        return "暖氣";
+        return t("heater");
       case 3:
-        return "送風";
+        return t("fan");
       default:
-        return "冷氣";
+        return t("ac");
     }
   }
 };
@@ -308,10 +309,11 @@ const checkDatavaild = () => {
         return false;
       }
       if (roomdata.value.fanSpeed) {
-        let a = roomdata.value.fanSpeed;
-        if (a !== "A" || a !== "3" || a !== "2" || a !== "1")
+        const validSpeeds = ["A", "3", "2", "1"];
+        if (!validSpeeds.includes(roomdata.value.fanSpeed)) {
           window.alert("轉速設定錯誤");
-        return false;
+          return false;
+        }
       }
     }
     console.log(roomdata.value.isWork);

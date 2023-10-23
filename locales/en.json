@@ -11,5 +11,19 @@
   "room": "Rm.",
   "totalroom": "Room",
   "roomtemperature": "RT.",
-  "settmp": "SV."
+  "settmp": "SV.",
+  "roomtmp": "Rm.Tmp",
+  "power": "Power",
+  "setedmp": "SetTmp.",
+  "modenow": "Mode",
+  "wind": "Wind",
+  "strong": "Strong",
+  "mid": "Mid.",
+  "weak": "Weak",
+  "auto": "Auto",
+  "submit": "Submit",
+  "cancel": "Cancel",
+  "ac": "AC",
+  "heater": "Heater",
+  "fan": "Fan"
 }

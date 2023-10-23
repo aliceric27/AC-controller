@@ -11,5 +11,19 @@
   "room": "房",
   "totalroom": "房數",
   "roomtemperature": "室溫",
-  "settmp": "設定"
+  "settmp": "設定",
+  "roomtmp": "室內溫度",
+  "power": "電源",
+  "setedmp": "設定溫度",
+  "modenow": "模式",
+  "wind": "風量",
+  "strong": "強",
+  "mid": "中",
+  "weak": "弱",
+  "auto": "自動",
+  "submit": "送出",
+  "cancel": "取消",
+  "ac": "冷氣",
+  "heater": "暖氣",
+  "fan": "送風"
 }
