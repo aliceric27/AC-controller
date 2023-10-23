@@ -58,12 +58,20 @@
         <div
           class="flex flex-col items-center justify-between w-full h-full p-4 bg-gray-100 rounded-lg"
         >
-          <button class="flex justify-center w-full" @click="coolswitch('up')">
+          <button
+            class="flex justify-center w-full"
+            @click="coolswitch('up')"
+            :calss="{ 'cursor-not-allowed': !controller }"
+            :disabled="!controller"
+          >
             <img
-              v-if="controller"
               src="@svg/adjust_up.svg"
               alt="增加溫度"
-              class="mb-2 adjust-btn"
+              class="mb-2adjust-btn"
+              :class="{
+                'opacity-0': !controller,
+                'cursor-default': !controller,
+              }"
             />
           </button>
           <div class="text-center">
@@ -90,12 +98,16 @@
           <button
             class="flex justify-center w-full"
             @click="coolswitch('down')"
+            :disabled="!controller"
           >
             <img
-              v-if="controller"
               src="@svg/adjust_down.svg"
               alt="減少溫度"
               class="mt-2 adjust-btn"
+              :class="{
+                'opacity-0': !controller,
+                'cursor-default': !controller,
+              }"
             />
           </button>
         </div>
@@ -104,6 +116,7 @@
         <div
           class="flex flex-col justify-center w-full h-full p-4 text-center bg-gray-100 rounded-lg cursor-pointer"
           @click="coolermodeswitch(coolermode)"
+          :class="{ 'cursor-default': !controller }"
         >
           <p class="mb-2 lg:text-2xl">{{ $t("modenow") }}</p>
           <div></div>
@@ -124,8 +137,8 @@
 
       <!-- Wind controller -->
       <div
-        v-if="controller"
         class="flex items-center w-full h-12 p-2 my-2 space-x-4 border rounded-md bg-zinc-300 bg-opacity-30 border-neutral-200"
+        :class="{ 'opacity-0': !controller }"
       >
         <!-- 風量文字描述 -->
         <div class="text-xl font-bold whitespace-nowrap text-neutral-500">
@@ -136,6 +149,7 @@
         <select
           v-model="fanspeedset"
           class="w-full p-2 text-sm font-bold text-black border-2 bg-neutral-100 rounded-2xl border-neutral-200 lg:text-2xl"
+          :disabled="!controller"
         >
           <option value="3" class="text-black" :selected="fanSpeedCheck('3')">
             {{ $t("strong") }}
