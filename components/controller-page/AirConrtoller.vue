@@ -249,11 +249,17 @@ const Controllerswitch = (): void => {
 const coolswitch = (command: string): void => {
   switch (command) {
     case "up":
-      coolertmp.value++;
+      if (coolertmp.value >= 30) {
+        coolertmp.value = 30;
+        break;
+      } else coolertmp.value++;
+      break;
       setUpdate(true);
       break;
     case "down":
-      coolertmp.value--;
+      if (coolertmp.value <= 18) {
+        coolertmp.value = 18;
+      } else coolertmp.value--;
       setUpdate(true);
       break;
   }
@@ -387,6 +393,14 @@ watch(
   () => fanspeedset.value,
   () => {
     setUpdate(true);
+  }
+);
+watch(
+  () => coolertmp.value,
+  (newval, oldval) => {
+    if (newval > 30) coolertmp.value = 30;
+    else if (newval < 18) coolertmp.value = 18;
+    return true;
   }
 );
 </script>
