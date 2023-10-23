@@ -261,7 +261,7 @@ const coolswitch = (command: string): void => {
 // 暫時寫法後續改用計算屬性
 const coolermodeswitch = (mode: number) => {
   setUpdate(true);
-  const allmode = [1, 2, 3];
+  const allmode = [1, 2];
   const currentIndex = allmode.indexOf(mode);
   // if (currentIndex === -1) {
   //   console.error("提供的模式不在列表中");
@@ -284,8 +284,6 @@ const getmodepic = (item: string) => {
         return "roomStateMode2-cool.png";
       case 2:
         return "roomStateMode2-heating.png";
-      case 3:
-        return "roomStateMode-wind.png";
       default:
         return "roomStateMode2-cool.png";
     }
@@ -295,8 +293,6 @@ const getmodepic = (item: string) => {
         return t("ac");
       case 2:
         return t("heater");
-      case 3:
-        return t("fan");
       default:
         return t("ac");
     }
