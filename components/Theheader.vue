@@ -17,12 +17,12 @@
       </div>
     </div>
     <p v-if="ismoke">Demo Mode (fetch rror)</p>
-    <div>
-      <select name="" id="" @change="changelang">
+    <!-- <div> -->
+    <!-- <select name="" id="" @change="changelang">
         <option value="zh">zh</option>
         <option value="en">en</option>
       </select>
-    </div>
+    </div> -->
     <!-- 預留部分 -->
     <!-- <div class="">
       <select v-model="$i18n.locale" name="" id="locale-select">

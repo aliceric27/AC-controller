@@ -1,7 +1,7 @@
 <template>
-  <div class="m-2 border maincard-warp">
-    <div class="border cursor-pointer warp-in">
-      <div class="flex justify-between border warp-top">
+  <div class="m-2 maincard-warp">
+    <div class="border rounded-md cursor-pointer">
+      <div class="flex justify-between warp-top">
         <p class="gold-text">{{ props.floor }}F</p>
         <div>
           <div class="flex m-2">
@@ -12,7 +12,7 @@
           </div>
         </div>
       </div>
-      <div class="border warp-bottom">
+      <div class="warp-bottom">
         <div class="flex">
           <img class="mx-2" src="@svg/power.svg" alt="關機" />
           <p class="inline-block mx-2 text-2xl grey-text">
@@ -64,7 +64,7 @@ const floorlist = computed(() =>
 .maincard-warp {
   width: 17.5rem;
   height: max-content;
-  background-color: #bdbdbd;
+  background-color: #fff;
 }
 .grey-text {
   color: #717171;
