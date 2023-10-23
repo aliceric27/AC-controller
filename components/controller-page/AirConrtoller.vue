@@ -228,6 +228,7 @@ const controller: Ref<boolean> = ref(roomdata.value.isWork);
 const coolertmp: Ref<any> = ref(roomdata.value.setTemp);
 const coolermode: Ref<number> = ref(roomdata.value.setMode);
 const isTmpedit: Ref<boolean> = ref(false);
+const isAuto: Ref<number> = ref(roomdata.value.isAuto);
 const isDataupdate = computed(() => InfoStore.isDataUpdate);
 const isFirstRun = computed(() => InfoStore.isFirstrun);
 const setFirstrun = InfoStore.setFirstrun;
@@ -239,6 +240,7 @@ const localrData = reactive({
   coolertmp,
   coolermode,
   nowTemp: "- -",
+  isAuto,
 });
 
 const Controllerswitch = (): void => {
@@ -376,8 +378,12 @@ watch(
   (newVal, oldVal) => {
     if (newVal.controller && isFirstRun) {
       if (!newVal.coolertmp) newVal.coolertmp = "25";
-      if (!newVal.fanspeedset || newVal.fanspeedset === 4)
+      if (newVal.isAuto === 1) {
         newVal.fanspeedset = "A";
+      } else if (newVal.isAuto === 0) {
+        if (!newVal.fanspeedset || newVal.fanspeedset === 4)
+          newVal.fanspeedset = "A";
+      }
       if (!newVal.coolermode) newVal.coolermode = 1;
       if (!newVal.nowTemp) roomdata.value.nowTemp = "- -";
       roomdata.value.iscool = 0;
