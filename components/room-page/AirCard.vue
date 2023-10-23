@@ -1,12 +1,16 @@
 <template>
   <!-- online card -->
   <div
+    v-if="DeviceOnline !== 2"
     class="flex justify-center m-4 cursor-pointer btn-scale"
     @click="controllerPage(props.room.roomNo)"
   >
     <div
       class="inline-flex flex-col items-start justify-center w-56 shadow lg:w-48 h-36 rounded-xl"
-      :class="{ 'bg-green-300': DeviceOnline, 'bg-gray-300': !DeviceOnline }"
+      :class="{
+        'bg-[#90FF9C]': DeviceOnline === 1,
+        'bg-[#E2E2E2]': DeviceOnline === 0,
+      }"
     >
       <!-- 上層房號 -->
       <div
@@ -19,13 +23,13 @@
         </div>
         <div
           v-if="DeviceOnline === 1"
-          class="w-14 h-9 text-right text-green-400 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
+          class="w-14 h-9 text-right text-green-400 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest stork-white"
         >
           ON
         </div>
         <div
           v-else
-          class="m-2 w-14 h-9 text-right text-neutral-500 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
+          class="stork-white m-2 w-14 h-9 text-right text-neutral-500 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
         >
           OFF
         </div>
@@ -96,7 +100,7 @@
     </div>
   </div>
   <!-- offline card -->
-  <div v-if="false" class="flex justify-center m-4">
+  <div v-if="DeviceOnline === 2" class="flex justify-center m-4">
     <div
       class="flex flex-col justify-center w-56 bg-[#424242] shadow h-36 rounded-xl"
     >
@@ -116,7 +120,7 @@
         <div
           class="text-red-700 text-3xl font-bold font-['Microsoft JhengHei UI']"
         >
-          設備離線
+          {{ $t("outline") }}
         </div>
       </div>
     </div>
@@ -224,5 +228,8 @@ const fanspeed = computed(() => {
 }
 .btn-scale:hover {
   transform: scale(1.1);
+}
+.stork-white {
+  -webkit-text-stroke: 0.5px #fff;
 }
 </style>

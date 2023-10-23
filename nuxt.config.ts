@@ -8,7 +8,7 @@ function pathResolve(dir: string) {
 export default defineNuxtConfig({
   ssr: true,
   experimental: {
-    payloadExtraction: true,
+    payloadExtraction: false,
   },
   components: [
     { path: "~/components/room-page" },

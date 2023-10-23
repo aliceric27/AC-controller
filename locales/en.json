@@ -25,5 +25,6 @@
   "cancel": "Cancel",
   "ac": "AC",
   "heater": "Heater",
-  "fan": "Fan"
+  "fan": "Fan",
+  "outline": "Offline"
 }
