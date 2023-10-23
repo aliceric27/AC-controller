@@ -67,7 +67,7 @@
             <img
               src="@svg/adjust_up.svg"
               alt="增加溫度"
-              class="mb-2adjust-btn"
+              class="mb-2 adjust-btn"
               :class="{
                 'opacity-0': !controller,
                 'cursor-default': !controller,
