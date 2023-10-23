@@ -65,7 +65,7 @@
           },
           {
             "roomNo": "502",
-            "isWork": 0,
+            "isWork": 2,
             "nowTemp": 28,
             "setTemp": 23,
             "setMode": 3,
@@ -101,7 +101,7 @@
           },
           {
             "roomNo": "506",
-            "isWork": 1,
+            "isWork": 2,
             "nowTemp": 34,
             "setTemp": 21,
             "setMode": 2,
@@ -137,7 +137,7 @@
           },
           {
             "roomNo": "5010",
-            "isWork": 1,
+            "isWork": 2,
             "nowTemp": 28,
             "setTemp": 18,
             "setMode": 2,

@@ -102,17 +102,19 @@
   <!-- offline card -->
   <div v-if="DeviceOnline === 2" class="flex justify-center m-4">
     <div
-      class="flex flex-col justify-center w-56 bg-[#424242] shadow h-36 rounded-xl"
+      class="flex flex-col justify-center w-56 lg:w-full bg-[#424242] shadow h-36 rounded-xl"
     >
       <!-- top room -->
-      <div class="w-56 h-9 px-1.5 justify-between items-center inline-flex">
+      <div
+        class="w-56 h-9 px-1.5 justify-between items-center inline-flex whitespace-nowrap"
+      >
         <div
           class="w-28 h-11 p-1 text-orange-400 text-3xl font-bold font-['Microsoft JhengHei UI'] tracking-widest"
         >
           {{ props.room.roomNo }}房
         </div>
       </div>
-      <div class="w-56 h-28 p-1.5 justify-between items-center inline-flex">
+      <div class="inline-flex items-center justify-center w-full h-28">
         <div>
           <img src="@svg/Vector_alert.svg" alt="" />
           <!-- <Vectoralert types="vite-svg-loader" /> -->
@@ -121,6 +123,10 @@
           class="text-red-700 text-3xl font-bold font-['Microsoft JhengHei UI']"
         >
           {{ $t("outline") }}
+        </div>
+        <div>
+          <img src="@svg/Vector_alert.svg" alt="" />
+          <!-- <Vectoralert types="vite-svg-loader" /> -->
         </div>
       </div>
     </div>
