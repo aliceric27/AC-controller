@@ -309,7 +309,7 @@ const getmodepic = (item: string) => {
 
 const fanSpeedCheck = (checkitem: String) => {
   if (roomdata && checkitem) {
-    if (!isFirstRun) setUpdate(true);
+    if (!isFirstRun.value) setUpdate(true);
     const speednow = roomdata.value.fanSpeed;
     return speednow === checkitem;
   }
@@ -376,7 +376,7 @@ watch(
 watch(
   () => localrData,
   (newVal, oldVal) => {
-    if (newVal.controller && isFirstRun) {
+    if (newVal.controller && isFirstRun.value) {
       if (!newVal.coolertmp) newVal.coolertmp = "25";
       if (newVal.isAuto === 1) {
         newVal.fanspeedset = "A";
