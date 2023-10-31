@@ -1,5 +1,5 @@
 <template>
-  <div class="warp lg:h-screen">
+  <div class="p-4 warp lg:h-screen">
     <div
       class="flex flex-col flex-wrap items-center gap-2 lg:grid lg:grid-cols-6"
     >

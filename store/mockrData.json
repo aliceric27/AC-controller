@@ -48,6 +48,54 @@
         "onCount": 1,
         "tooCool": 1,
         "roomCount": 10
+      },
+      {
+        "floorNo": 11,
+        "offCount": 9,
+        "offLine": 0,
+        "onCount": 1,
+        "tooCool": 1,
+        "roomCount": 10
+      },
+      {
+        "floorNo": 12,
+        "offCount": 9,
+        "offLine": 0,
+        "onCount": 1,
+        "tooCool": 1,
+        "roomCount": 10
+      },
+      {
+        "floorNo": 13,
+        "offCount": 9,
+        "offLine": 0,
+        "onCount": 1,
+        "tooCool": 1,
+        "roomCount": 10
+      },
+      {
+        "floorNo": 14,
+        "offCount": 9,
+        "offLine": 0,
+        "onCount": 1,
+        "tooCool": 1,
+        "roomCount": 10
+      },
+      {
+        "floorNo": 15,
+        "offCount": 9,
+        "offLine": 0,
+        "onCount": 1,
+        "tooCool": 1,
+        "roomCount": 10
+      },
+      {
+        "floorNo": 16,
+        "offCount": 9,
+        "offLine": 0,
+        "onCount": 1,
+        "tooCool": 1,
+        "roomCount": 10
       }
     ],
     "floorData": [
@@ -531,7 +579,280 @@
         "roomData": [
           {
             "roomNo": "1001",
+            "isWork": 2,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1002",
             "isWork": 0,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1003",
+            "isWork": 2,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1004",
+            "isWork": 1,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          }
+        ]
+      },
+      {
+        "floorNo": 11,
+        "roomData": [
+          {
+            "roomNo": "1001",
+            "isWork": 2,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1002",
+            "isWork": 0,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1003",
+            "isWork": 2,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1004",
+            "isWork": 1,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          }
+        ]
+      },
+      {
+        "floorNo": 12,
+        "roomData": [
+          {
+            "roomNo": "1001",
+            "isWork": 2,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1002",
+            "isWork": 0,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1003",
+            "isWork": 2,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1004",
+            "isWork": 1,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          }
+        ]
+      },
+      {
+        "floorNo": 13,
+        "roomData": [
+          {
+            "roomNo": "1001",
+            "isWork": 2,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1002",
+            "isWork": 0,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1003",
+            "isWork": 2,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1004",
+            "isWork": 1,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          }
+        ]
+      },
+      {
+        "floorNo": 14,
+        "roomData": [
+          {
+            "roomNo": "1001",
+            "isWork": 2,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1002",
+            "isWork": 0,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1003",
+            "isWork": 2,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1004",
+            "isWork": 1,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          }
+        ]
+      },
+      {
+        "floorNo": 15,
+        "roomData": [
+          {
+            "roomNo": "1001",
+            "isWork": 2,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1002",
+            "isWork": 0,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1003",
+            "isWork": 2,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1004",
+            "isWork": 1,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          }
+        ]
+      },
+      {
+        "floorNo": 16,
+        "roomData": [
+          {
+            "roomNo": "1001",
+            "isWork": 2,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1002",
+            "isWork": 0,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1003",
+            "isWork": 2,
+            "nowTemp": 29,
+            "setTemp": 21,
+            "setMode": 1,
+            "isAuto": 0,
+            "fanSpeed": 1
+          },
+          {
+            "roomNo": "1004",
+            "isWork": 1,
             "nowTemp": 29,
             "setTemp": 21,
             "setMode": 1,

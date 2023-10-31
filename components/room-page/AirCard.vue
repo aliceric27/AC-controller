@@ -102,7 +102,7 @@
   <!-- offline card -->
   <div v-if="DeviceOnline === 2" class="flex justify-center m-4">
     <div
-      class="flex flex-col justify-center w-56 lg:w-full bg-[#424242] shadow h-36 rounded-xl"
+      class="flex flex-col justify-center w-56 lg:w-48 bg-[#424242] shadow h-36 rounded-xl"
     >
       <!-- top room -->
       <div
