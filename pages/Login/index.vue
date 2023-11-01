@@ -40,7 +40,8 @@ import { pa } from "element-plus/es/locale";
 import useLoginStore from "~/store/LoginStore";
 import { jwtDecode } from "jwt-decode";
 import type { FormInstance, FormRules } from "element-plus";
-
+import { useRouter } from "vue-router";
+const router = useRouter();
 const ruleFormRef = ref<FormInstance>();
 const { $swal } = useNuxtApp();
 interface Loginfo {
@@ -70,6 +71,7 @@ const Login = async () => {
       const rawtoken = respon?.data?.access_token;
       localStorage.setItem("token", rawtoken);
       Loginstore.setToken(rawtoken);
+      router.push("/");
       setTimeout(() => {
         formbtmloading.value = false;
       }, 1000);
