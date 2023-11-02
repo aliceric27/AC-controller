@@ -33,7 +33,7 @@ const turnfloor = (floor: number) => {
 
 <style scoped>
 body {
-  height: 100dvh;
+  min-height: 100vh;
   width: 100%;
 }
 .warp {

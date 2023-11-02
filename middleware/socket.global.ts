@@ -3,6 +3,7 @@ import useLoginStore from "~/store/LoginStore";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "vue-router";
 export default defineNuxtRouteMiddleware((to, from) => {
+  const { $swal } = useNuxtApp();
   const router = useRouter();
   const socketStore = useSocketStore();
   const loginStore = useLoginStore();
@@ -16,6 +17,12 @@ export default defineNuxtRouteMiddleware((to, from) => {
     if (!localtoken) {
       console.log("1");
       router.push({ path: "/Login" });
+      $swal.fire({
+        title: "請重新登入",
+        text: "憑證過期",
+        icon: "warning",
+        confirmButtonText: "確認",
+      });
       return false;
     } else {
       console.log("2");
@@ -24,17 +31,29 @@ export default defineNuxtRouteMiddleware((to, from) => {
       if (!expvaild) {
         console.log("3");
         localStorage.clear();
-        router.push({ path: "/Login" });
-        return false;
-      } else return true;
+        return navigateTo({ path: "/Login" });
+        $swal.fire({
+          title: "請重新登入",
+          text: "憑證過期",
+          icon: "warning",
+          confirmButtonText: "確認",
+        });
+      } else return navigateTo();
     }
   };
   // checktoken();
   console.log(to, from);
   if (to.path === "/Login") return true;
-  else {
-    const result = checktoken();
-    return result;
+  if (to.name === "controller-page" || to.name === "room-page") {
+    console.log("floorList.floorList.length", socketStore.floorList.length);
+    if (!socketStore.floorList.length) {
+      console.log("ok");
+      navigateTo();
+      return navigateTo({ name: "index" });
+    }
+  } else {
+    checktoken();
+    // return navigateTo(to.fullPath);  `
   }
 
   // check socket is online
