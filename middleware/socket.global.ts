@@ -41,7 +41,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
       } else return navigateTo();
     }
   };
-  // checktoken();
+
   console.log(to, from);
   if (to.path === "/Login") return true;
   if (to.name === "controller-page" || to.name === "room-page") {

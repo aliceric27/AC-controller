@@ -94,6 +94,13 @@ const useSocketStore = defineStore({
             // Use mock data if available
             if (import.meta.env.PROD) {
               console.error("Connection Error:", error);
+              // 特殊demo版本強制開啟demo模式，正式版將下列註解
+              this.data = this.mockData;
+              const { floorData, floorList } = this.mockData.rData;
+              this.floorData = floorData;
+              this.floorList = floorList;
+              this.isMokemode = true;
+              console.log("MockData enable");
             } else {
               this.data = this.mockData;
               const { floorData, floorList } = this.mockData.rData;
